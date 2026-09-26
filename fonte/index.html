@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Capela votiva a São Padre Pio · Obra Refúgio de Maria</title>
-<meta name="description" content="Ajude a construir a Capela votiva a São Padre Pio, no local da sede da Obra Refúgio de Maria, na Av. José Leon, 2038, em Fortaleza–CE. Doe via Pix.">
+<title>Capela dedicada a São Padre Pio · Obra Refúgio de Maria</title>
+<meta name="description" content="Ajude a construir a Capela dedicada a São Padre Pio, no local da sede da Obra Refúgio de Maria, na Av. José Leon, 2038, em Fortaleza–CE. Doe via Pix.">
 <meta name="theme-color" content="#6a1a1f">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Obra Refúgio de Maria">
-<meta property="og:title" content="Capela votiva a São Padre Pio">
+<meta property="og:title" content="Capela dedicada a São Padre Pio">
 <meta property="og:description" content="Ajude a erguer uma casa de oração dedicada a São Padre Pio, na sede da Obra Refúgio de Maria, em Fortaleza–CE. Doe via Pix.">
 <!-- Endereço provisório (GitHub Pages). Ao ativar o domínio próprio, troque as três URLs abaixo. -->
 <meta property="og:url" content="https://rciribelli.github.io/capela-sao-padre-pio/">
 <meta property="og:image" content="https://rciribelli.github.io/capela-sao-padre-pio/compartilhar.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Ilustração da fachada da Capela votiva a São Padre Pio, com o selo da Obra Refúgio de Maria">
+<meta property="og:image:alt" content="Ilustração da fachada da Capela dedicada a São Padre Pio, com o selo da Obra Refúgio de Maria">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://rciribelli.github.io/capela-sao-padre-pio/">
 <link rel="icon" type="image/png" href="img/favicon.png">
@@ -81,6 +81,8 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
 .menu a { text-decoration: none; color: var(--tinta); }
 .menu a:not(.btn):hover { color: var(--vermelho); }
 .menu a.btn-vermelho { color: #fff; }
+.menu .btn { white-space: nowrap; }
+.marca > span { min-width: 0; }
 
 /* ---------- botões ---------- */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 12px 22px; border-radius: 999px; border: 1.5px solid transparent; font: 700 15px/1.2 var(--sans); text-decoration: none; cursor: pointer; transition: background .2s, color .2s, border-color .2s, transform .2s; }
@@ -113,7 +115,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
 .acoes { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 .nota-heroi { margin-top: 16px; font-size: 13.5px; color: #e2c9c4; }
 .fachada { position: relative; margin: 52px auto 0; width: min(1160px, 100% - 32px); }
-.fachada img { width: 100%; aspect-ratio: 1312 / 424; object-fit: cover; object-position: 60% 50%; border-radius: var(--raio) var(--raio) 0 0; border: 1px solid rgba(232, 207, 142, .35); border-bottom: 0; box-shadow: 0 -10px 60px rgba(0, 0, 0, .35); }
+.fachada img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; object-position: 50% 62%; border-radius: var(--raio) var(--raio) 0 0; border: 1px solid rgba(232, 207, 142, .35); border-bottom: 0; box-shadow: 0 -10px 60px rgba(0, 0, 0, .35); }
 .fachada figcaption { position: absolute; left: 16px; bottom: 14px; background: rgba(46, 11, 13, .78); color: #f6e9e6; font-size: 12.5px; padding: 6px 12px; border-radius: 999px; backdrop-filter: blur(4px); }
 
 /* ---------- fatos ---------- */
@@ -134,17 +136,19 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
 .centro { text-align: center; }
 .centro .intro { margin-inline: auto; }
 
-/* capela votiva */
-.votiva { display: grid; grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; }
-.votiva p { color: #4a3a37; margin: 0 0 18px; }
+/* capela dedicada */
+.dedicada { display: grid; grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; }
+.dedicada p { color: #4a3a37; margin: 0 0 18px; }
 .cartao-apoio { margin-top: 26px; display: flex; gap: 16px; padding: 22px; background: var(--branco); border: 1px solid var(--linha); border-radius: var(--raio); }
 .cartao-apoio .ic { width: 44px; height: 44px; border-radius: 50%; background: var(--rosa); color: var(--vermelho); display: grid; place-items: center; flex: none; }
 .cartao-apoio b { display: block; color: var(--vinho-700); margin-bottom: 4px; }
 .cartao-apoio p { margin: 0; font-size: 15px; color: var(--suave); }
-.citacao { margin: 0; position: relative; background: linear-gradient(160deg, var(--vinho-700), var(--vinho-900)); color: #fff; border-radius: var(--raio); padding: 40px 36px; box-shadow: var(--sombra); overflow: hidden; }
+.citacao { margin: 0; position: relative; background: linear-gradient(160deg, var(--vinho-700), var(--vinho-900)); color: #fff; border-radius: var(--raio); padding: 40px 36px; box-shadow: var(--sombra); display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; overflow: hidden; }
 .citacao::after { content: '✝'; position: absolute; right: -10px; bottom: -60px; font: 240px/1 Georgia, serif; color: rgba(232, 207, 142, .08); }
 .citacao .aspas { font: 700 80px/0.6 var(--serif); color: var(--ouro); display: block; margin-bottom: 10px; }
-.citacao blockquote { margin: 0; font: italic 600 clamp(26px, 2.8vw, 32px)/1.3 var(--serif); }
+.citacao blockquote { margin: 0; font: italic 600 clamp(21px, 2.1vw, 26px)/1.3 var(--serif); }
+.citacao-retrato { width: 100%; height: auto; align-self: end; margin-bottom: -40px; }
+.citacao-texto { position: relative; z-index: 1; }
 .citacao cite { display: block; margin-top: 20px; font-style: normal; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--ouro-claro); }
 
 /* projeto */
@@ -289,18 +293,20 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
 
 @media (max-width: 980px) {
   .menu a:not(.btn) { display: none; }
-  .votiva, .doar-grade { grid-template-columns: 1fr; gap: 28px; }
+  .dedicada, .doar-grade { grid-template-columns: 1fr; gap: 28px; }
   .cartoes { grid-template-columns: repeat(2, 1fr); }
   .planta-bloco { grid-template-columns: 300px 1fr; gap: 36px; }
 }
 @media (max-width: 720px) {
+  .citacao { grid-template-columns: 1fr 1.2fr; gap: 16px; padding: 28px 22px; }
+  .citacao-retrato { margin-bottom: -28px; }
   .cabecalho .wrap { height: 64px; }
   .marca img { width: 42px; height: 42px; }
   .marca b { font-size: 18px; }
   .menu .btn { min-height: 40px; padding: 8px 14px; font-size: 13.5px; }
   .heroi { padding-top: 48px; }
   .fachada { margin-top: 36px; width: 100%; }
-  .fachada img { aspect-ratio: 2.1 / 1; object-position: 25% 50%; border-radius: 0; border-inline: 0; }
+  .fachada img { aspect-ratio: 1.2 / 1; object-position: 50% 70%; border-radius: 0; border-inline: 0; }
   .fachada figcaption { position: static; border-radius: 0; text-align: center; background: var(--vinho-950); padding: 8px 12px; }
   .fatos ul { grid-template-columns: 1fr 1fr; gap: 0; padding: 8px 0; }
   .fatos li { padding: 16px 8px; }
@@ -351,13 +357,13 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
   <symbol id="i-whats" viewBox="0 0 24 24"><path d="M3.6 20.4 5 16.2A8.6 8.6 0 1 1 8 19.1z" fill="none"/><path d="M9.3 8.1c.3-.6.6-.6.9-.6h.5c.2 0 .4 0 .6.5l.8 1.8c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.3 0 .6.5.9 1.5 1.9 2.6 2.4.3.1.4.1.6-.1l.6-.8c.2-.2.4-.2.6-.1l1.8.8c.3.1.4.3.4.4 0 .5-.2 1.3-.9 1.7-.7.4-1.6.5-2.9 0-1.7-.6-3.4-2.1-4.4-3.7-.8-1.3-.9-2.4-.6-3.2.1-.4.3-.7.4-.9z" fill="currentColor" stroke="none"/></symbol>
 </svg>
 
-<div class="faixa">Campanha para a construção da Capela votiva a São Padre Pio · Fortaleza–CE</div>
+<div class="faixa">Campanha para a construção da Capela dedicada a São Padre Pio · Fortaleza–CE</div>
 
 <header class="cabecalho">
   <div class="wrap">
     <a class="marca" href="#inicio" aria-label="Início">
       <img src="img/logo-orm.webp" alt="Selo da Obra Refúgio de Maria" width="52" height="52">
-      <span><b>Obra Refúgio de Maria</b><small>Capela votiva a São Padre Pio</small></span>
+      <span><b>Obra Refúgio de Maria</b><small>Capela dedicada a São Padre Pio</small></span>
     </a>
     <nav class="menu" aria-label="Seções da página">
       <a href="#capela">A capela</a>
@@ -372,8 +378,8 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
 <main id="inicio">
   <section class="heroi">
     <div class="wrap heroi-texto">
-      <span class="selo"><svg class="i"><use href="#i-cruz"/></svg> Capela votiva · Sede da Obra Refúgio de Maria</span>
-      <h1>Ajude a erguer a Capela votiva a <em>São Padre Pio</em></h1>
+      <span class="selo"><svg class="i"><use href="#i-cruz"/></svg> Na sede da Obra Refúgio de Maria</span>
+      <h1>Ajude a erguer a Capela dedicada a <em>São Padre Pio</em></h1>
       <p class="lead">No local da nossa sede, na Av. José Leon, 2038, em Fortaleza, vamos construir uma capela dedicada a São Padre Pio de Pietrelcina: um lugar de oração, de Santa Missa e de adoração ao Santíssimo, de portas abertas para todos. Sua doação ajuda a tornar esse projeto realidade.</p>
       <div class="acoes">
         <a class="btn btn-ouro" href="#doar">Doar via Pix</a>
@@ -382,7 +388,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
       <p class="nota-heroi">Toda oferta e toda oração fazem diferença.</p>
     </div>
     <figure class="fachada">
-      <img src="img/fachada.webp" width="1312" height="424" alt="Ilustração da fachada da capela: toda em madeira, com o letreiro “Capela São Padre Pio”, duas cruzes iluminadas, portas abertas mostrando o altar e, à esquerda, o corredor lateral coberto.">
+      <img src="img/fachada.webp" width="1268" height="1083" alt="Ilustração da fachada da capela, toda em madeira: frontão com o nome da capela, porta de madeira em arco, placa “Capela de São Padre Pio · Comunidade Católica” com o selo da Obra Refúgio de Maria, campanário com sino à direita, cerca de ripas de madeira e jardim à esquerda.">
       <figcaption>Imagem ilustrativa · corredor lateral à esquerda, com acesso ao fundo</figcaption>
     </figure>
   </section>
@@ -397,11 +403,11 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
   </section>
 
   <section class="secao" id="capela">
-    <div class="wrap votiva">
+    <div class="wrap dedicada">
       <div>
-        <span class="chamada">Por que uma capela votiva</span>
-        <h2>Um voto de fé que se torna <em>casa de oração</em></h2>
-        <p>Uma capela votiva nasce de um voto: é oferecida a Deus como sinal de gratidão e de confiança, sob a proteção de um santo. A nossa será dedicada a São Padre Pio de Pietrelcina, o frade capuchinho que passou a vida entre o altar e o confessionário e ensinou tantas pessoas a rezar com confiança.</p>
+        <span class="chamada">Dedicada a São Padre Pio</span>
+        <h2>Um sonho de fé que se torna <em>casa de oração</em></h2>
+        <p>A nova capela será dedicada a São Padre Pio de Pietrelcina, o frade capuchinho que passou a vida entre o altar e o confessionário e ensinou tantas pessoas a rezar com confiança. Sob a sua intercessão, queremos oferecer um lugar de encontro com Deus.</p>
         <p>Ela será construída no local da sede da Obra Refúgio de Maria, comunidade católica que evangeliza pela consagração a Jesus pelas mãos de Maria, segundo o método de São Luís Maria Grignion de Montfort. Também evangelizamos pela consagração total a São José, além de outros projetos.</p>
         <p>Queremos que seja uma casa simples e acolhedora, onde qualquer pessoa possa entrar, rezar, entregar suas intenções e encontrar consolo.</p>
         <div class="cartao-apoio">
@@ -413,9 +419,12 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
         </div>
       </div>
       <figure class="citacao">
-        <span class="aspas" aria-hidden="true">“</span>
-        <blockquote>A oração é a melhor arma que temos; é a chave que abre o coração de Deus.</blockquote>
-        <cite>São Padre Pio de Pietrelcina</cite>
+        <img class="citacao-retrato" src="img/tex_placa_retrato.png" width="600" height="747" alt="Retrato de São Padre Pio em traço creme">
+        <div class="citacao-texto">
+          <span class="aspas" aria-hidden="true">“</span>
+          <blockquote>A oração é a melhor arma que temos; é a chave que abre o coração de Deus.</blockquote>
+          <cite>São Padre Pio de Pietrelcina</cite>
+        </div>
       </figure>
     </div>
   </section>
@@ -524,7 +533,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
         <p class="intro">Um passeio em 3D feito com as medidas do projeto: da calçada até o altar, passando pelo corredor lateral.</p>
       </div>
       <div class="player" id="player">
-        <canvas id="passeio-canvas" aria-label="Passeio 3D pela futura Capela votiva a São Padre Pio"></canvas>
+        <canvas id="passeio-canvas" aria-label="Passeio 3D pela futura Capela dedicada a São Padre Pio"></canvas>
         <div class="player-escuro" id="passeio-escuro"></div>
         <div class="player-cartela" id="passeio-cartela" aria-live="polite">
           <img src="img/logo-orm.webp" alt="">
@@ -578,7 +587,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
             <img src="img/logo-sicredi.png" alt="Banco Sicredi" width="161" height="44">
             <img src="img/logo-pix.png" alt="Pix" width="110" height="44">
           </div>
-          <div class="qr"><img src="img/pix-qrcode.png" width="678" height="680" alt="QR Code Pix da Obra Refúgio de Maria para doações à Capela votiva a São Padre Pio"></div>
+          <div class="qr"><img src="img/pix-qrcode.png" width="678" height="680" alt="QR Code Pix da Obra Refúgio de Maria para doações à Capela dedicada a São Padre Pio"></div>
           <p class="pix-conta">Conta da <b>Obra Refúgio de Maria</b> no <b>Banco Sicredi</b></p>
           <div class="copia">
             <button type="button" class="btn btn-vermelho btn-bloco" id="copiar-pix"><svg class="i"><use href="#i-copiar"/></svg> Copiar código Pix (Copia e Cola)</button>
@@ -611,7 +620,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
             <svg class="i"><use href="#i-alerta"/></svg>
             <div>
               <b>Algum dado diferente?</b> Não conclua o Pix. Fale com a gente pelo WhatsApp antes de doar.
-              <br><a class="btn btn-whats btn-pequeno" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Fui%20doar%20pelo%20Pix%20para%20a%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%2C%20mas%20os%20dados%20que%20apareceram%20no%20meu%20banco%20est%C3%A3o%20diferentes.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> WhatsApp (85) 98445-2025</a>
+              <br><a class="btn btn-whats btn-pequeno" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Fui%20doar%20pelo%20Pix%20para%20a%20Capela%20dedicada%20a%20S%C3%A3o%20Padre%20Pio%2C%20mas%20os%20dados%20que%20apareceram%20no%20meu%20banco%20est%C3%A3o%20diferentes.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> WhatsApp (85) 98445-2025</a>
             </div>
           </div>
         </div>
@@ -636,7 +645,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
           <h3><svg class="i"><use href="#i-partilhar"/></svg>Compartilhe esta campanha</h3>
           <p>Envie para familiares e amigos. Cada pessoa que conhece o projeto pode se tornar um novo benfeitor.</p>
           <div class="acoes">
-            <a class="btn btn-whats btn-pequeno" id="compartilhar-whats" href="https://wa.me/?text=Conhe%C3%A7a%20e%20ajude%20a%20construir%20a%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%2C%20da%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> Compartilhar no WhatsApp</a>
+            <a class="btn btn-whats btn-pequeno" id="compartilhar-whats" href="https://wa.me/?text=Conhe%C3%A7a%20e%20ajude%20a%20construir%20a%20Capela%20dedicada%20a%20S%C3%A3o%20Padre%20Pio%2C%20da%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> Compartilhar no WhatsApp</a>
             <button type="button" class="btn btn-contorno-escuro btn-pequeno" id="copiar-link"><svg class="i"><use href="#i-copiar"/></svg> Copiar link</button>
           </div>
         </article>
@@ -647,7 +656,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
         <article class="forma">
           <h3><svg class="i"><use href="#i-empresa"/></svg>Empresas e profissionais</h3>
           <p>Empresas, lojas de materiais e profissionais da construção também podem ajudar. Fale com a gente para combinarmos juntos.</p>
-          <div class="acoes"><a class="btn btn-contorno-escuro btn-pequeno" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Gostaria%20de%20ajudar%20na%20constru%C3%A7%C3%A3o%20da%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%20(empresa%2C%20materiais%20ou%20servi%C3%A7os)." target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> Conversar no WhatsApp</a></div>
+          <div class="acoes"><a class="btn btn-contorno-escuro btn-pequeno" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Gostaria%20de%20ajudar%20na%20constru%C3%A7%C3%A3o%20da%20Capela%20dedicada%20a%20S%C3%A3o%20Padre%20Pio%20(empresa%2C%20materiais%20ou%20servi%C3%A7os)." target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> Conversar no WhatsApp</a></div>
         </article>
       </div>
     </div>
@@ -675,8 +684,8 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
       </div>
       <div class="faq">
         <details>
-          <summary>O que é uma capela votiva?</summary>
-          <p>É uma capela oferecida a Deus como fruto de um voto, em ação de graças e em súplica, sob a proteção de um santo. A nossa é dedicada a São Padre Pio de Pietrelcina.</p>
+          <summary>Por que a capela é dedicada a São Padre Pio?</summary>
+          <p>São Padre Pio de Pietrelcina foi um frade capuchinho que dedicou a vida à oração, à Santa Missa e ao confessionário, com grande amor a Jesus Eucarístico e à Virgem Maria. Dedicamos a capela a ele e pedimos a sua intercessão por esta obra.</p>
         </details>
         <details>
           <summary>Onde a capela será construída?</summary>
@@ -684,7 +693,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
         </details>
         <details>
           <summary>Como sei que estou doando para a conta certa?</summary>
-          <p>Ao ler o QR Code ou colar o código, o app do seu banco mostra os dados da conta. Confira: CNPJ 60.638.183/0001-05, Sicredi Veredas Cooperativa de Crédito, mensagem “Futura Capela São Padre Pio - ORM” e identificador “PadrePio”. Se algo estiver diferente, não conclua o Pix e fale com a gente pelo WhatsApp <a href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Fui%20doar%20pelo%20Pix%20para%20a%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%2C%20mas%20os%20dados%20que%20apareceram%20no%20meu%20banco%20est%C3%A3o%20diferentes.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener">(85) 98445-2025</a>.</p>
+          <p>Ao ler o QR Code ou colar o código, o app do seu banco mostra os dados da conta. Confira: CNPJ 60.638.183/0001-05, Sicredi Veredas Cooperativa de Crédito, mensagem “Futura Capela São Padre Pio - ORM” e identificador “PadrePio”. Se algo estiver diferente, não conclua o Pix e fale com a gente pelo WhatsApp <a href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Fui%20doar%20pelo%20Pix%20para%20a%20Capela%20dedicada%20a%20S%C3%A3o%20Padre%20Pio%2C%20mas%20os%20dados%20que%20apareceram%20no%20meu%20banco%20est%C3%A3o%20diferentes.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener">(85) 98445-2025</a>.</p>
         </details>
         <details>
           <summary>Posso doar qualquer valor?</summary>
@@ -692,7 +701,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
         </details>
         <details>
           <summary>Como os recursos serão usados?</summary>
-          <p>As doações feitas por este Pix são destinadas à construção e à ambientação da Capela votiva a São Padre Pio. Quem se cadastra como benfeitor recebe notícias sobre o andamento da obra.</p>
+          <p>As doações feitas por este Pix são destinadas à construção e à ambientação da Capela dedicada a São Padre Pio. Quem se cadastra como benfeitor recebe notícias sobre o andamento da obra.</p>
         </details>
         <details>
           <summary>Qual é o prazo da obra?</summary>
@@ -714,10 +723,10 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
     <div class="wrap">
       <span class="chamada">Obra Refúgio de Maria</span>
       <h2>Vamos construir juntos uma casa de oração</h2>
-      <p>Una-se a esta missão: doe, compartilhe e reze pela construção da Capela votiva a São Padre Pio.</p>
+      <p>Una-se a esta missão: doe, compartilhe e reze pela construção da Capela dedicada a São Padre Pio.</p>
       <div class="acoes">
         <a class="btn btn-ouro" href="#doar">Doar via Pix</a>
-        <a class="btn btn-contorno" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%20e%20gostaria%20de%20falar%20com%20a%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> Falar no WhatsApp</a>
+        <a class="btn btn-contorno" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Capela%20dedicada%20a%20S%C3%A3o%20Padre%20Pio%20e%20gostaria%20de%20falar%20com%20a%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> Falar no WhatsApp</a>
       </div>
       <p class="jaculatoria">São Padre Pio, rogai por nós!</p>
     </div>
@@ -732,15 +741,15 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
     </a>
     <ul>
       <li>Site: <a href="https://obrarefugiodemaria.com.br" target="_blank" rel="noopener">obrarefugiodemaria.com.br</a></li>
-      <li>WhatsApp: <a href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%20e%20gostaria%20de%20falar%20com%20a%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener">(85) 98445-2025</a></li>
+      <li>WhatsApp: <a href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Capela%20dedicada%20a%20S%C3%A3o%20Padre%20Pio%20e%20gostaria%20de%20falar%20com%20a%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener">(85) 98445-2025</a></li>
       <li>Instagram: <a href="https://www.instagram.com/obrarefugiodemaria/" target="_blank" rel="noopener">@obrarefugiodemaria</a></li>
       <li>Av. José Leon, 2038 · Fortaleza–CE</li>
     </ul>
-    <p class="legal">© <span id="ano">2026</span> Obra Refúgio de Maria · Capela votiva a São Padre Pio. Imagens e passeio 3D ilustrativos. No passeio 3D, a foto de São Padre Pio e a imagem de Nossa Senhora de Fátima são de domínio público (Wikimedia Commons).</p>
+    <p class="legal">© <span id="ano">2026</span> Obra Refúgio de Maria · Capela dedicada a São Padre Pio. Imagens e passeio 3D ilustrativos. No passeio 3D, a foto de São Padre Pio e a imagem de Nossa Senhora de Fátima são de domínio público (Wikimedia Commons).</p>
   </div>
 </footer>
 
-<a class="whats-flutuante" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%20e%20gostaria%20de%20falar%20com%20a%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener" aria-label="Falar com a Obra Refúgio de Maria no WhatsApp"><svg class="i"><use href="#i-whats"/></svg><span>Fale conosco</span></a>
+<a class="whats-flutuante" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Capela%20dedicada%20a%20S%C3%A3o%20Padre%20Pio%20e%20gostaria%20de%20falar%20com%20a%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener" aria-label="Falar com a Obra Refúgio de Maria no WhatsApp"><svg class="i"><use href="#i-whats"/></svg><span>Fale conosco</span></a>
 
 <script>
 // Pix Copia e Cola (mesmo conteúdo do QR Code do Sicredi)
@@ -767,7 +776,7 @@ document.getElementById('copiar-pix').addEventListener('click', async () => {
 
 // Compartilhar: usa o endereço desta página quando ela estiver publicada
 const enderecoPagina = /^https?:/.test(location.protocol) ? location.href.split('#')[0] : '';
-const textoConvite = 'Conheça e ajude a construir a Capela votiva a São Padre Pio, da Obra Refúgio de Maria.';
+const textoConvite = 'Conheça e ajude a construir a Capela dedicada a São Padre Pio, da Obra Refúgio de Maria.';
 if (enderecoPagina) document.getElementById('compartilhar-whats').href = 'https://wa.me/?text=' + encodeURIComponent(textoConvite + ' ' + enderecoPagina);
 const botaoLink = document.getElementById('copiar-link');
 if (!enderecoPagina) botaoLink.hidden = true;
@@ -842,7 +851,7 @@ async function iniciar() {
     mod = await importar();
     alta = matchMedia('(min-width: 900px)').matches && !/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
     passeio = await mod.criarPasseio(canvas, {
-      texturas: { padrePio: 'img/tex_padrepio.webp', placaRetrato: 'img/tex_placa_retrato.png', fatima: 'img/tex_fatima.webp' },
+      texturas: { padrePio: 'img/tex_padrepio.webp', placaRetrato: 'img/tex_placa_retrato.png', fatima: 'img/tex_fatima.webp', logo: 'img/logo-orm.webp' },
       qualidade: alta ? 'alta' : 'media',
     });
     barra.max = mod.DURACAO;

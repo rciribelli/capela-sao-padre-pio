@@ -46,7 +46,7 @@ await new Promise((ok) => { logo.onload = ok; logo.src = '../img/logo-orm.png'; 
 log('fontes e logo ok');
 
 const passeio = await criarPasseio(gl, {
-  texturas: { padrePio: '../img/tex_padrepio.webp', placaRetrato: '../img/tex_placa_retrato.png', fatima: '../img/tex_fatima.webp' },
+  texturas: { padrePio: '../img/tex_padrepio.webp', placaRetrato: '../img/tex_placa_retrato.png', fatima: '../img/tex_fatima.webp', logo: '../img/logo-orm.webp' },
   qualidade: 'alta', gravacao: true,
 });
 passeio.tamanho(W, H, 1);

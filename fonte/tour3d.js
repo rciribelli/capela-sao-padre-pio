@@ -1,4 +1,4 @@
-// Passeio 3D da Capela votiva a São Padre Pio (Obra Refúgio de Maria).
+// Passeio 3D da Capela dedicada a São Padre Pio (Obra Refúgio de Maria).
 // Medidas do projeto: nave de 8,00 m de frente × 15,00 m de profundidade,
 // corredor lateral externo de 1,00 m à ESQUERDA (olhando da rua), que segue ao lado da sede até o fundo.
 // No meio do caminho do corredor fica a lojinha (livros e Bíblias), com porta de vidro de correr.
@@ -15,7 +15,7 @@ import { criarCrucificado } from './esculturas.js';
 export const DURACAO = 50;
 
 export const LEGENDAS = [
-  { ini: 0.8, fim: 6.2, abertura: true, titulo: 'Capela votiva a São Padre Pio', texto: 'Obra Refúgio de Maria · Av. José Leon, 2038 · Fortaleza–CE' },
+  { ini: 0.8, fim: 6.2, abertura: true, titulo: 'Capela dedicada a São Padre Pio', texto: 'Obra Refúgio de Maria · Av. José Leon, 2038 · Fortaleza–CE' },
   { ini: 4.6, fim: 9.0, texto: 'Fachadas em madeira e iluminação em LED' },
   { ini: 12.4, fim: 17.2, texto: 'Bancos em madeira com corredores central e lateral livres' },
   { ini: 18.0, fim: 23.8, texto: 'Presbitério: altar, crucifixo, Nossa Senhora de Fátima e São Padre Pio' },
@@ -40,7 +40,7 @@ const TOMADAS = [
   ] },
   { ini: 25, fim: 40.2, chaves: [
     [21, [-1.2, 1.7, 12], [-4.5, 1.7, 0]],
-    [25, [-2.6, 1.65, 7.5], [-4.5, 1.7, -3]],
+    [25, [-3.4, 1.65, 7.2], [-4.5, 1.7, -3]],
     [28.5, [-4.5, 1.62, 1.8], [-4.5, 1.6, -10]],
     [33.2, [-4.5, 1.62, -13.6], [-4.45, 1.55, -24]],
     [35.0, [-4.45, 1.62, -15.95], [-1.2, 1.45, -16.9]],
@@ -330,6 +330,151 @@ function superficieCurva(larg, alt, prof, segX = 24, segY = 8) {
   return g;
 }
 
+function carregarImg(url) {
+  return new Promise((ok) => {
+    if (!url) return ok(null);
+    const i = new Image();
+    i.onload = () => ok(i);
+    i.onerror = () => ok(null);
+    i.src = url;
+  });
+}
+
+function canvasGrama() {
+  const [c, g] = tela(512, 512);
+  const r = rng(61);
+  g.fillStyle = '#4c7a34';
+  g.fillRect(0, 0, 512, 512);
+  for (let k = 0; k < 16000; k++) {
+    const l = 22 + r() * 26;
+    g.strokeStyle = `hsla(${88 + r() * 30}, 45%, ${l}%, 0.55)`;
+    g.lineWidth = 1 + r();
+    const x = r() * 512, y = r() * 512;
+    g.beginPath(); g.moveTo(x, y); g.lineTo(x + (r() - 0.5) * 4, y - 3 - r() * 7); g.stroke();
+  }
+  return c;
+}
+
+function canvasPedras() {
+  const [c, g] = tela(512, 512);
+  const r = rng(73);
+  g.fillStyle = '#7d7468';
+  g.fillRect(0, 0, 512, 512);
+  const n = 7, t = 512 / n;
+  for (let i = -1; i <= n; i++) for (let j = -1; j <= n; j++) {
+    const cx = (i + 0.5 + (r() - 0.5) * 0.5) * t, cy = (j + 0.5 + (r() - 0.5) * 0.5) * t;
+    const l = 58 + r() * 20;
+    g.fillStyle = `hsl(${30 + r() * 14}, ${10 + r() * 12}%, ${l}%)`;
+    g.beginPath();
+    const lados = 6 + Math.floor(r() * 3);
+    for (let k = 0; k < lados; k++) {
+      const a = (k / lados) * Math.PI * 2, rr = t * (0.36 + r() * 0.12);
+      const x = cx + Math.cos(a) * rr, y = cy + Math.sin(a) * rr;
+      k ? g.lineTo(x, y) : g.moveTo(x, y);
+    }
+    g.closePath(); g.fill();
+    g.fillStyle = 'rgba(255,255,255,0.08)';
+    g.beginPath(); g.ellipse(cx - t * 0.08, cy - t * 0.08, t * 0.18, t * 0.12, 0, 0, Math.PI * 2); g.fill();
+  }
+  return c;
+}
+
+function canvasTronco() {
+  const [c, g] = tela(128, 512);
+  const r = rng(83);
+  g.fillStyle = '#6b5a47';
+  g.fillRect(0, 0, 128, 512);
+  for (let y = 0; y < 512; y += 18 + r() * 8) {
+    g.fillStyle = `rgba(40,28,18,${0.35 + r() * 0.25})`;
+    g.fillRect(0, y, 128, 3 + r() * 3);
+    g.fillStyle = 'rgba(200,180,150,0.15)';
+    g.fillRect(0, y + 5, 128, 2);
+  }
+  return c;
+}
+
+function canvasFolhaPalmeira() {
+  const [c, g] = tela(256, 1024);
+  const r = rng(97);
+  g.strokeStyle = '#6e7d3a';
+  g.lineWidth = 7;
+  g.beginPath(); g.moveTo(128, 1024); g.lineTo(128, 10); g.stroke();
+  for (let y = 980; y > 30; y -= 11) {
+    const u = 1 - y / 1024, comp = 118 * Math.sin(Math.PI * Math.min(1, u * 1.15 + 0.08));
+    for (const s of [-1, 1]) {
+      g.strokeStyle = `hsl(${95 + r() * 18}, ${45 + r() * 15}%, ${24 + r() * 14}%)`;
+      g.lineWidth = 5 + r() * 2;
+      g.beginPath(); g.moveTo(128, y); g.quadraticCurveTo(128 + s * comp * 0.5, y - 26, 128 + s * comp, y - 18 + r() * 10); g.stroke();
+    }
+  }
+  return c;
+}
+
+// placa de bronze (como na referência): nome da capela, "Comunidade Católica" e o selo da ORM
+function canvasPlaca(logo) {
+  const [c, g] = tela(1600, 700);
+  g.beginPath();
+  g.moveTo(40, 40); g.lineTo(1560, 40); g.lineTo(1560, 430); g.lineTo(800, 660); g.lineTo(40, 430); g.closePath();
+  const gr = g.createLinearGradient(0, 40, 0, 660);
+  gr.addColorStop(0, '#4d3624'); gr.addColorStop(1, '#2a1c12');
+  g.fillStyle = gr; g.fill();
+  g.save(); g.clip();
+  const r = rng(107);
+  for (let k = 0; k < 5000; k++) { g.fillStyle = `rgba(${r() < 0.5 ? '255,220,170' : '0,0,0'},${r() * 0.06})`; g.fillRect(r() * 1600, r() * 700, 2 + r() * 4, 2 + r() * 4); }
+  g.restore();
+  g.lineWidth = 18; g.strokeStyle = '#9a7a45'; g.stroke();
+  g.lineWidth = 4; g.strokeStyle = '#d8b878';
+  g.beginPath(); g.moveTo(80, 80); g.lineTo(1520, 80); g.lineTo(1520, 405); g.lineTo(800, 620); g.lineTo(80, 405); g.closePath(); g.stroke();
+  g.textAlign = 'center';
+  g.fillStyle = '#ecd6a4';
+  const titulo = 'CAPELA DE SÃO PADRE PIO';
+  g.font = "700 120px 'Cormorant Garamond', Georgia, serif";
+  const esc = Math.min(1, 1340 / g.measureText(titulo).width);
+  g.font = `700 ${Math.round(120 * esc)}px 'Cormorant Garamond', Georgia, serif`;
+  g.fillText(titulo, 800, 205);
+  g.font = "600 70px 'Cormorant Garamond', Georgia, serif";
+  g.fillText('COMUNIDADE CATÓLICA', 800, 300);
+  if (logo) g.drawImage(logo, 800 - 110, 340, 220, 220);
+  return c;
+}
+
+// medalhão entalhado do frontão: nome em arco e o retrato de São Padre Pio
+function canvasMedalhao(retrato) {
+  const [c, g] = tela(1024, 560);
+  const cx = 512, cy = 548, R = 500;
+  g.save();
+  g.beginPath(); g.arc(cx, cy, R, Math.PI, 0); g.closePath(); g.clip();
+  const gr = g.createRadialGradient(cx, cy, 60, cx, cy, R);
+  gr.addColorStop(0, '#5a3419'); gr.addColorStop(1, '#2e1a0c');
+  g.fillStyle = gr; g.fillRect(0, 0, 1024, 560);
+  g.strokeStyle = 'rgba(0,0,0,0.3)'; g.lineWidth = 5;
+  for (let a = 0; a <= 28; a++) {
+    const t = Math.PI + (a * Math.PI) / 28;
+    g.beginPath(); g.moveTo(cx + Math.cos(t) * 345, cy + Math.sin(t) * 345); g.lineTo(cx + Math.cos(t) * 360, cy + Math.sin(t) * 360); g.stroke();
+  }
+  if (retrato) {
+    const h = 320, w = (h * retrato.width) / retrato.height;
+    g.drawImage(retrato, cx - w / 2, cy - h - 4, w, h);
+  }
+  g.restore();
+  g.strokeStyle = '#c9a24a';
+  g.lineWidth = 16; g.beginPath(); g.arc(cx, cy, R - 10, Math.PI, 0); g.stroke();
+  g.lineWidth = 7; g.beginPath(); g.arc(cx, cy, 340, Math.PI, 0); g.stroke();
+  g.fillStyle = '#e8cf8e';
+  g.font = "700 62px 'Cormorant Garamond', Georgia, serif";
+  g.textAlign = 'center'; g.textBaseline = 'middle';
+  const txt = 'CAPELA DE SÃO PADRE PIO', rT = 420;
+  const larg = [...txt].map((ch) => g.measureText(ch).width + 7);
+  const total = larg.reduce((a, b) => a + b, 0);
+  let ang = -Math.PI / 2 - total / rT / 2;
+  [...txt].forEach((ch, i) => {
+    ang += larg[i] / 2 / rT;
+    g.save(); g.translate(cx + Math.cos(ang) * rT, cy + Math.sin(ang) * rT); g.rotate(ang + Math.PI / 2); g.fillText(ch, 0, 0); g.restore();
+    ang += larg[i] / 2 / rT;
+  });
+  return c;
+}
+
 // ---------- cena ----------
 export async function criarPasseio(canvas, opcoes = {}) {
   const { texturas = {}, qualidade = 'alta', gravacao = false } = opcoes;
@@ -450,12 +595,12 @@ export async function criarPasseio(canvas, opcoes = {}) {
   // faixa central
   for (let x = -60; x < 60; x += 4) caixa(2, 0.01, 0.12, M.pedra, x, -0.07, 12.5);
   // vizinho à esquerda (muro de granito) e à direita (muro branco)
-  caixa(7, 3.3, 0.35, M.granito(3.5, 1.6), -8.6, 1.65, 0.05);
+  caixa(7, 3.3, 0.35, M.granito(3.5, 1.6), -8.6, 1.65, 2.6);
   caixa(7, 3.2, 15, M.parede, -8.6, 1.6, -7.5);
-  caixa(0.5, 3.6, 0.5, M.parede, 4.4, 1.8, 0.1);
-  caixa(0.28, 0.5, 0.14, M.aco, 4.4, 1.9, 0.4);
-  caixa(7, 2.6, 15, new THREE.MeshStandardMaterial({ color: 0x8a8378, roughness: 0.95 }), 8.2, 1.3, -7.5);
-  caixa(7, 0.2, 0.3, M.pedra, 8.2, 2.7, 0.05);
+  caixa(0.5, 3.6, 0.5, M.parede, 4.6, 1.8, 2.6);
+  caixa(0.28, 0.5, 0.14, M.aco, 4.6, 1.9, 2.9);
+  caixa(7, 2.6, 17.6, new THREE.MeshStandardMaterial({ color: 0x8a8378, roughness: 0.95 }), 8.2, 1.3, -6.2);
+  caixa(7, 0.2, 0.3, M.pedra, 8.2, 2.7, 2.6);
   // primavera (buganvília) do vizinho
   const flor = new THREE.MeshStandardMaterial({ color: 0xc02a78, roughness: 0.8 });
   const r = rng(77);
@@ -485,7 +630,6 @@ export async function criarPasseio(canvas, opcoes = {}) {
   pisoInt.rotation.x = -Math.PI / 2;
   pisoInt.position.set(0, PISO, -7.425);
   cena.add(pisoInt);
-  caixa(8.2, PISO, 0.6, M.piso(8.2 / 2.4, 0.25), 0, PISO / 2, 0.3); // degrau/soleira
   // paredes
   const paredeLat = () => M.reboco(15 / 3, HP / 3);
   caixa(0.15, HP, 15, paredeLat(), X0 + 0.075, HP / 2, -7.5);
@@ -495,44 +639,55 @@ export async function criarPasseio(canvas, opcoes = {}) {
   const oitaoFundo = sombra(new THREE.Mesh(new THREE.ExtrudeGeometry(oitao, { depth: 0.15, bevelEnabled: false }), M.reboco(1 / 3, 1 / 3)));
   oitaoFundo.position.set(0, 0, Z1);
   cena.add(oitaoFundo);
-  // cobertura (telha metálica) e tesouras de aço
+  // cobertura: telha colonial por fora e forro de madeira (lambri) por dentro
   const ang = Math.atan2(CUME - HP, 4);
-  const lad = Math.hypot(4.4, (CUME - HP) * 1.1);
+  const lad = Math.hypot(4.45, (CUME - HP) * 1.1);
+  const texTelhado = telhaColonial.clone();
+  texTelhado.rotation = Math.PI / 2;
+  texTelhado.repeat.set(15.6 / 1.0, lad / 1.5);
+  texTelhado.needsUpdate = true;
+  const matTelhado = new THREE.MeshStandardMaterial({ map: texTelhado, roughness: 0.75 });
+  const matForro = M.madeira(lad / 1.2, 15.6 / 1.6);
+  const matBorda = M.escura(2, 0.2);
   for (const s of [-1, 1]) {
-    const t = new THREE.Mesh(new THREE.BoxGeometry(lad, 0.04, 15.1), M.telhaInt);
-    t.position.set(s * 2.0, (HP + CUME) / 2 + 0.03, -7.55);
+    // ordem das faces da caixa: +x, -x, +y (telha), -y (forro), +z, -z
+    const t = sombra(new THREE.Mesh(new THREE.BoxGeometry(lad, 0.12, 15.6), [matBorda, matBorda, matTelhado, matForro, matBorda, matBorda]));
+    t.position.set(s * 2.02, (HP + CUME) / 2 + 0.06, -7.45);
     t.rotation.z = -s * ang;
-    sombra(t, true, true);
     cena.add(t);
   }
-  const yTopo = (x) => HP + (CUME - HP) * (1 - Math.abs(x) / 4);
+  // cumeeira
+  caixa(0.26, 0.16, 15.6, new THREE.MeshStandardMaterial({ color: 0x7a3a22, roughness: 0.75 }), 0, CUME + 0.1, -7.45);
+  // tesouras de madeira aparentes (linha, pernas e pendural)
+  const matViga = M.escura(0.6, 3);
   for (let z = -1.5; z > Z1; z -= 3) {
-    barra([-3.9, HP, z], [3.9, HP, z], 0.08, M.aco);
-    barra([-3.9, HP, z], [0, CUME - 0.05, z], 0.08, M.aco);
-    barra([3.9, HP, z], [0, CUME - 0.05, z], 0.08, M.aco);
-    for (const x of [-3, -2, -1, 1, 2, 3]) {
-      barra([x, HP, z], [x, yTopo(x) - 0.05, z], 0.05, M.aco);
-      const x2 = x - Math.sign(x);
-      barra([x, HP, z], [x2, yTopo(x2) - 0.05, z], 0.04, M.aco);
-    }
+    barra([-3.92, HP, z], [3.92, HP, z], 0.16, matViga);
+    barra([-3.92, HP + 0.05, z], [0, CUME - 0.12, z], 0.14, matViga);
+    barra([3.92, HP + 0.05, z], [0, CUME - 0.12, z], 0.14, matViga);
+    barra([0, HP, z], [0, CUME - 0.12, z], 0.12, matViga);
+    for (const sx of [-1, 1]) barra([0, HP + 0.15, z], [sx * 1.9, HP + (CUME - HP) * (1 - 1.9 / 4) - 0.1, z], 0.09, matViga);
   }
-  for (const x of [-3, -1.6, 0, 1.6, 3]) barra([x, yTopo(x) - 0.08, 0], [x, yTopo(x) - 0.08, Z1], 0.07, M.aco);
 
-  // luminárias pendentes (focos de luz)
+  // luminárias pendentes entre as tesouras
   let nSombra = 0;
-  for (let z = -1.5; z > Z1; z -= 3) {
-    const lum = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.16, 0.12, 20), M.aco);
-    lum.position.set(0, HP - 0.1, z);
+  for (let z = -3; z > Z1 + 1; z -= 3) {
+    const yl = 3.75;
+    barra([0, yl + 0.06, z], [0, CUME - 0.05, z], 0.012, M.aco);
+    const lum = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.2, 0.18, 24, 1, true), new THREE.MeshStandardMaterial({ color: 0x3a2a1c, roughness: 0.5, side: THREE.DoubleSide }));
+    lum.position.set(0, yl, z);
     cena.add(lum);
-    const disco = new THREE.Mesh(new THREE.CircleGeometry(0.11, 20), M.luz(0xffe2b8, 8));
+    const disco = new THREE.Mesh(new THREE.CircleGeometry(0.17, 24), M.luz(0xffe2b8, 6));
     disco.rotation.x = Math.PI / 2;
-    disco.position.set(0, HP - 0.165, z);
+    disco.position.set(0, yl - 0.07, z);
     cena.add(disco);
-    const sp = new THREE.SpotLight(0xffd7a6, 20, 11, 0.95, 0.75, 2);
-    sp.position.set(0, HP - 0.2, z);
+    const sp = new THREE.SpotLight(0xffd7a6, 20, 11, 1.0, 0.75, 2);
+    sp.position.set(0, yl - 0.1, z);
     sp.target.position.set(0, 0, z);
-    if (alta && z <= -4.5 && nSombra < 3) { sp.castShadow = true; sp.shadow.mapSize.set(1024, 1024); sp.shadow.bias = -0.0004; nSombra++; }
+    if (alta && z <= -5 && nSombra < 3) { sp.castShadow = true; sp.shadow.mapSize.set(1024, 1024); sp.shadow.bias = -0.0004; nSombra++; }
     cena.add(sp, sp.target);
+    const cima = new THREE.PointLight(0xffc98a, 1.2, 4, 2);
+    cima.position.set(0, yl + 0.3, z);
+    cena.add(cima);
   }
 
   // arandelas (luz para cima e para baixo) nas paredes laterais — dentro e no corredor
@@ -721,108 +876,239 @@ export async function criarPasseio(canvas, opcoes = {}) {
     }
   }
 
-  // ---------- fachada (toda em madeira) ----------
-  const ZF = 0.02; // face interna da fachada
+  // palmeira do jardim
+  function palmeira(x, z, h) {
+    const g = new THREE.Group();
+    const matTronco = new THREE.MeshStandardMaterial({ map: repetir(texturaDe(canvasTronco()), 1, 5), roughness: 0.9 });
+    const curva = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0.08, h * 0.35, 0.04), new THREE.Vector3(0.18, h * 0.7, 0.03), new THREE.Vector3(0.24, h, 0)]);
+    g.add(sombra(new THREE.Mesh(new THREE.TubeGeometry(curva, 16, 0.1, 10, false), matTronco)));
+    const topo = curva.getPoint(1);
+    const matFolha = new THREE.MeshStandardMaterial({ map: texturaDe(canvasFolhaPalmeira(), 1, 1), alphaTest: 0.4, side: THREE.DoubleSide, roughness: 0.7 });
+    for (let i = 0; i < 12; i++) {
+      const L = 1.5 + (i % 3) * 0.25;
+      const geo = new THREE.PlaneGeometry(0.72, L, 1, 12);
+      const p = geo.attributes.position;
+      for (let k = 0; k < p.count; k++) { const v = p.getY(k) + L / 2; p.setY(k, v); p.setZ(k, -0.3 * v * v); }
+      geo.computeVertexNormals();
+      const f = sombra(new THREE.Mesh(geo, matFolha), true, false);
+      f.position.copy(topo);
+      f.rotation.order = 'YXZ';
+      f.rotation.y = (i / 12) * Math.PI * 2 + (i % 2) * 0.25;
+      f.rotation.x = -0.95 - (i % 3) * 0.18;
+      g.add(f);
+    }
+    g.position.set(x, 0, z);
+    cena.add(g);
+  }
+  // banco de jardim em madeira
+  function banco2(x, z, rot) {
+    const g = new THREE.Group();
+    for (let i = 0; i < 3; i++) caixa(1.2, 0.035, 0.11, M.madeira(1, 0.2), 0, 0.44, -0.15 + i * 0.13, g);
+    for (let i = 0; i < 2; i++) caixa(1.2, 0.1, 0.03, M.madeira(1, 0.2), 0, 0.62 + i * 0.14, -0.23, g);
+    for (const sx of [-0.52, 0.52]) {
+      caixa(0.06, 0.44, 0.06, M.escura(), sx, 0.22, 0.1, g);
+      caixa(0.06, 0.9, 0.06, M.escura(), sx, 0.45, -0.24, g);
+      caixa(0.06, 0.04, 0.4, M.escura(), sx, 0.42, -0.06, g);
+    }
+    g.position.set(x, 0, z);
+    g.rotation.y = rot;
+    cena.add(g);
+  }
+
+  // ---------- fachada (toda em madeira, com frontão, porta em arco e campanário) ----------
+  const ZF = 0.02; // face interna da parede da nave
   const EF = 0.2; // espessura
   const zFrente = ZF + EF;
-  caixa(1.55, 3.7, EF, M.fachada(1.55 / 1.6, 3.7 / 1.6), -3.325, 1.85, ZF + EF / 2);
-  caixa(1.55, 3.7, EF, M.fachada(1.55 / 1.6, 3.7 / 1.6), 3.325, 1.85, ZF + EF / 2);
-  // portas pivotantes de ripas (abertas, recolhidas nas laterais)
-  const matRipa = M.fachada(0.08, 3.7 / 1.6);
-  for (const s of [-1, 1]) {
-    for (let k = 0; k < 11; k++) {
-      const x = s * (1.62 + k * 0.088);
-      caixa(0.065, 3.5, 0.08, matRipa, x, 1.75 + 0.02, zFrente - 0.02);
+  const matTabuas = (rx = 1 / 1.6, ry = 1 / 1.6) => M.fachada(rx, ry);
+  const matEntalhe = M.escura(1 / 1.2, 1 / 1.2);
+  function extrudar(pontos, arcos, prof, mat, z) {
+    const f = new THREE.Shape();
+    f.moveTo(...pontos[0]);
+    for (const p of pontos.slice(1)) {
+      if (p.arco) f.absarc(...p.arco);
+      else f.lineTo(...p);
     }
-    caixa(1.0, 0.08, 0.1, M.escura(), s * 2.06, 3.54, zFrente - 0.02);
-    caixa(1.0, 0.06, 0.1, M.escura(), s * 2.06, 0.05, zFrente - 0.02);
+    const m = sombra(new THREE.Mesh(new THREE.ExtrudeGeometry(f, { depth: prof, bevelEnabled: false, curveSegments: 32 }), mat));
+    m.position.z = z;
+    cena.add(m);
+    return m;
   }
-  // viga superior
-  caixa(8.3, 0.28, 0.32, M.fachada(8.3 / 1.6, 0.25), 0, 3.72, ZF + 0.16);
-  // oitão frontal (triângulo)
-  const oitaoF = new THREE.Shape([
-    new THREE.Vector2(-4.15, 3.86), new THREE.Vector2(4.15, 3.86), new THREE.Vector2(4.15, 4.45),
-    new THREE.Vector2(0, 6.45), new THREE.Vector2(-4.15, 4.45),
-  ]);
-  const geoOitao = new THREE.ExtrudeGeometry(oitaoF, { depth: EF, bevelEnabled: false });
-  const oitaoMesh = sombra(new THREE.Mesh(geoOitao, M.fachada(1 / 1.6, 1 / 1.6)));
-  oitaoMesh.position.z = ZF;
-  cena.add(oitaoMesh);
-  // beiral / testeira escura
+  const arco = (cx, cy, r, a0, a1, horario) => ({ arco: [cx, cy, r, a0, a1, horario] });
+
+  // parede frontal da nave (com o vão interno do portal)
+  extrudar([[-4.15, 0], [-1.5, 0], [-1.5, 3.3], [1.5, 3.3], [1.5, 0], [4.15, 0], [4.15, 4.12], [0, 6.02], [-4.15, 4.12]], null, EF, matTabuas(), ZF);
+  // faixa horizontal no alto das laterais (como na referência)
+  for (const s of [-1, 1]) caixa(1.9, 0.22, 0.08, M.escura(1.2, 0.2), s * 3.3, 3.95, zFrente + 0.04);
+
+  // frontão avançado: vestíbulo de 0,6 m e parede com a porta em arco
+  const ZP = 0.82, EP = 0.18, zPortal = ZP + EP; // face da frente do portal
+  const PX = 2.35, PH = 4.5, PC = 6.25; // meia largura, altura das laterais e cumeeira do frontão
+  extrudar([[-PX, 0], [-0.85, 0], [-0.85, 2.1], arco(0, 2.1, 0.85, Math.PI, 0, true), [0.85, 0], [PX, 0], [PX, PH], [0, PC], [-PX, PH]], null, EP, matTabuas(), ZP);
+  for (const s of [-1, 1]) caixa(0.12, PH, ZP - zFrente, matTabuas(0.5, PH / 1.6), s * (PX - 0.06), PH / 2, (ZP + zFrente) / 2);
+  caixa(PX * 2, 0.08, ZP - zFrente, M.madeira(2, 0.5), 0, 3.45, (ZP + zFrente) / 2); // forro do vestíbulo
+  caixa(PX * 2 + 0.2, PISO, 1.35, M.piso(2, 0.5), 0, PISO / 2, 0.62); // piso do vestíbulo e degrau
+  // moldura entalhada da porta
+  extrudar([[-1.02, 0], [-1.02, 2.1], arco(0, 2.1, 1.02, Math.PI, 0, true), [1.02, 0], [0.85, 0], [0.85, 2.1], arco(0, 2.1, 0.85, 0, Math.PI, false), [-0.85, 0]], null, 0.09, matEntalhe, zPortal);
+  caixa(0.22, 0.26, 0.12, matEntalhe, 0, 3.05, zPortal + 0.05); // pedra de fecho (fecho do arco)
+  // pilares da frente do frontão
+  for (const s of [-1, 1]) caixa(0.2, PH + 0.15, 0.2, M.escura(0.3, 2), s * (PX + 0.02), (PH + 0.15) / 2, zPortal + 0.05);
+  // telhado do frontão (tábuas escuras) com testeiras
+  const angP = Math.atan2(PC - PH, PX);
+  const LP = (PX + 0.35) / Math.cos(angP);
   for (const s of [-1, 1]) {
-    const comp = Math.hypot(4.15, 2.0) + 0.25;
-    const b = caixa(comp, 0.2, 0.55, M.escura(3, 0.2), s * (2.075 + 0.1), 5.45 - 0.05, ZF + 0.2);
-    b.rotation.z = -s * Math.atan2(2.0, 4.15);
+    const tp = caixa(LP, 0.1, 1.4, [matBorda, matBorda, matTelhado, M.madeira(1, 1), matBorda, matBorda], s * (PX + 0.35) / 2, PC + 0.12 - ((PX + 0.35) / 2) * Math.tan(angP), 0.62);
+    tp.rotation.z = -s * angP;
+    const testeira = caixa(LP, 0.24, 0.07, M.escura(2, 0.2), s * (PX + 0.35) / 2, PC + 0.02 - ((PX + 0.35) / 2) * Math.tan(angP), 1.34);
+    testeira.rotation.z = -s * angP;
   }
-  // focos de luz no beiral + brilho na madeira
-  for (const x of [-2.9, -1.2, 0.9, 2.7]) {
-    const y = 6.45 - (2.0 * Math.abs(x)) / 4.15 - 0.25;
-    caixa(0.08, 0.05, 0.08, M.luz(0xffe0b0, 20), x, y, zFrente + 0.05);
-    brilhoPlano(1.0, 1.3, 0xffb870, 0.55, [x, y - 0.5, zFrente + 0.003], 0, true);
+  // cruz no alto do frontão
+  caixa(0.08, 0.62, 0.08, M.escura(), 0, PC + 0.5, 1.2);
+  caixa(0.36, 0.08, 0.08, M.escura(), 0, PC + 0.62, 1.2);
+
+  // porta dupla de madeira em arco (aberta para dentro)
+  const matPortaMadeira = M.madeira(0.6, 1.6);
+  function folha(lado) {
+    const f = new THREE.Shape();
+    if (lado < 0) { f.moveTo(0, 0); f.lineTo(0.85, 0); f.lineTo(0.85, 2.95); f.absarc(0.85, 2.1, 0.85, Math.PI / 2, Math.PI, false); f.lineTo(0, 0); }
+    else { f.moveTo(0, 0); f.lineTo(-0.85, 0); f.lineTo(-0.85, 2.95); f.absarc(-0.85, 2.1, 0.85, Math.PI / 2, 0, true); f.lineTo(0, 0); }
+    const g = new THREE.Group();
+    const m = sombra(new THREE.Mesh(new THREE.ExtrudeGeometry(f, { depth: 0.06, bevelEnabled: false, curveSegments: 24 }), matPortaMadeira));
+    g.add(m);
+    const sx = -lado; // sentido do batente para o centro
+    for (const [y, h] of [[0.55, 0.8], [1.55, 0.8]]) caixa(0.5, h, 0.03, M.escura(0.4, 0.6), sx * 0.425, y, 0.075, g);
+    caixa(0.03, 0.22, 0.05, M.ouro, sx * 0.76, 1.15, 0.09, g);
+    g.position.set(lado * 0.85, PISO, ZP + 0.02);
+    g.rotation.y = lado < 0 ? 1.62 : -1.62;
+    cena.add(g);
   }
-  for (const x of [-1.6, 1.4]) {
-    const f = new THREE.SpotLight(0xffe3bd, 30, 6, 0.6, 0.8, 2);
-    f.position.set(x, 6.2, zFrente + 1.6);
-    f.target.position.set(x, 4.5, zFrente);
-    cena.add(f, f.target);
-  }
-  // letreiro "CAPELA São Padre Pio" com retrato gravado
-  const canvasLetreiro = canvasTexto([
-    { texto: 'CAPELA', fonte: "600 118px 'Cormorant Garamond', Georgia, serif", espaco: '22px', x: 1024, y: 190 },
-    { texto: 'São Padre Pio', fonte: "700 300px 'Cormorant Garamond', Georgia, serif", x: 1024, y: 520 },
-  ], 2048, 600);
-  const texLetreiro = texturaDe(canvasLetreiro, 1, 1);
-  const letreiro = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 1.055), new THREE.MeshStandardMaterial({ map: texLetreiro, transparent: true, roughness: 0.5, emissive: 0xffffff, emissiveMap: texLetreiro, emissiveIntensity: 0.28 }));
-  letreiro.position.set(-0.35, 4.62, zFrente + 0.012);
-  cena.add(letreiro);
-  if (texturas.placaRetrato) {
-    const tr = await new THREE.TextureLoader().loadAsync(texturas.placaRetrato);
-    tr.colorSpace = THREE.SRGBColorSpace;
-    const ret = new THREE.Mesh(new THREE.PlaneGeometry(0.93, 1.157), new THREE.MeshStandardMaterial({ map: tr, transparent: true, roughness: 0.5, emissive: 0xffffff, emissiveMap: tr, emissiveIntensity: 0.25 }));
-    ret.position.set(2.0, 4.5, zFrente + 0.012);
-    cena.add(ret);
-  }
-  const numero = texturaDe(canvasTexto([{ texto: '2038', fonte: "600 175px 'Times New Roman', Times, serif", x: 256, y: 185 }], 512, 240), 1, 1);
-  const placaNum = new THREE.Mesh(new THREE.PlaneGeometry(0.62, 0.29), new THREE.MeshStandardMaterial({ map: numero, transparent: true, emissive: 0xffffff, emissiveMap: numero, emissiveIntensity: 0.35 }));
-  placaNum.position.set(-3.4, 3.25, zFrente + 0.012);
-  cena.add(placaNum);
-  // cruzes em LED
+  folha(-1);
+  folha(1);
+
+  // placa pendurada sobre a porta e medalhão entalhado no frontão
+  const [imgLogo, imgRetrato] = await Promise.all([carregarImg(texturas.logo), carregarImg(texturas.placaRetrato)]);
+  const texPlaca = texturaDe(canvasPlaca(imgLogo), 1, 1);
+  const placa = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.1375), new THREE.MeshStandardMaterial({ map: texPlaca, transparent: true, alphaTest: 0.2, roughness: 0.45, metalness: 0.35, emissive: 0xffffff, emissiveMap: texPlaca, emissiveIntensity: 0.12 }));
+  placa.position.set(0, 3.64, zPortal + 0.11);
+  cena.add(placa);
+  for (const s of [-1, 1]) barra([s * 1.15, 4.22, zPortal + 0.02], [s * 1.15, 4.16, zPortal + 0.11], 0.03, M.aco);
+  const texMed = texturaDe(canvasMedalhao(imgRetrato), 1, 1);
+  const medalhao = new THREE.Mesh(new THREE.PlaneGeometry(2.0, 1.094), new THREE.MeshStandardMaterial({ map: texMed, transparent: true, alphaTest: 0.2, roughness: 0.55, emissive: 0xffffff, emissiveMap: texMed, emissiveIntensity: 0.1 }));
+  medalhao.position.set(0, 4.3 + 0.547, zPortal + 0.012);
+  cena.add(medalhao);
+
+  // iluminação da fachada (LED): lanternas ao lado da porta, focos no frontão e luz rasante na madeira
   for (const s of [-1, 1]) {
-    const x = s * 3.36;
-    caixa(0.085, 1.15, 0.05, M.luz(0xffd08a, 7), x, 1.95, zFrente + 0.025);
-    caixa(0.6, 0.085, 0.05, M.luz(0xffd08a, 7), x, 2.25, zFrente + 0.025);
-    brilhoPlano(1.5, 2.6, 0xffa458, 0.9, [x, 1.95, zFrente + 0.004], 0, true);
-    const pl = new THREE.PointLight(0xffb96b, 5, 3.5, 2);
-    pl.position.set(x, 2.0, zFrente + 0.35);
+    const x = s * 1.35;
+    caixa(0.18, 0.3, 0.16, new THREE.MeshStandardMaterial({ color: 0x1d1b19, metalness: 0.6, roughness: 0.4 }), x, 2.25, zPortal + 0.1);
+    caixa(0.12, 0.2, 0.12, M.luz(0xffd08a, 5), x, 2.22, zPortal + 0.12);
+    brilhoPlano(0.9, 1.4, 0xffb060, 0.55, [x, 2.2, zPortal + 0.005], 0, true);
+    const pl = new THREE.PointLight(0xffb96b, 3.5, 3.5, 2);
+    pl.position.set(x, 2.2, zPortal + 0.45);
     cena.add(pl);
   }
-  // fita de LED no rodapé da fachada
-  caixa(8.3, 0.025, 0.03, M.luz(0xffcf95, 5), 0, 0.03, zFrente + 0.03);
-  brilhoPlano(8.3, 0.7, 0xffb870, 0.35, [0, 0.18, zFrente + 0.003]);
+  for (const [x, alvoY] of [[0, 4.8], [0, 3.6]]) {
+    const f = new THREE.SpotLight(0xffe3bd, 26, 7, 0.5, 0.8, 2);
+    f.position.set(x, 1.0, zPortal + 2.2);
+    f.target.position.set(x, alvoY, zPortal);
+    cena.add(f, f.target);
+  }
+  for (const x of [-3.4, -2.6, 2.1, 3.5]) brilhoPlano(0.8, 3.2, 0xffa860, 0.3, [x, 1.6, (Math.abs(x) > PX + 0.1 ? zFrente : zPortal) + 0.004], 0, true);
+  caixa(PX * 2, 0.025, 0.03, M.luz(0xffcf95, 5), 0, PISO + 0.03, zPortal + 0.06);
+
+  // ---------- frente do terreno: jardim, caminho de pedras, cerca de ripas e campanário ----------
+  const ZC = 2.6; // alinhamento da cerca (divisa com a calçada)
+  function chao(x0, x1, z0, z1, mat, y = 0.012) {
+    const p = sombra(new THREE.Mesh(new THREE.PlaneGeometry(x1 - x0, z1 - z0), mat), false, true);
+    p.rotation.x = -Math.PI / 2;
+    p.position.set((x0 + x1) / 2, y, (z0 + z1) / 2);
+    cena.add(p);
+  }
+  chao(-3.98, -1.2, zFrente, ZC, new THREE.MeshStandardMaterial({ map: repetir(texturaDe(canvasGrama()), 2, 2), roughness: 0.95 }));
+  chao(-1.15, 1.15, zPortal, ZC, new THREE.MeshStandardMaterial({ map: repetir(texturaDe(canvasPedras()), 1.2, 1), roughness: 0.8 }), 0.015);
+  chao(1.2, 3.98, zFrente, ZC, M.paver(1.4, 1.2));
+  chao(-1.15, 1.2, zFrente, zPortal, M.paver(1, 0.4));
+  // palmeira, plantas e bancos
+  palmeira(-2.7, 1.25, 3.3);
+  planta(-1.55, 0.01, 0.75, 0.9);
+  planta(-3.6, 0.01, 2.2, 0.8);
+  planta(-1.55, 0.01, 2.25, 0.7);
+  planta(3.8, 0.01, 0.45, 0.9);
+  banco2(-3.45, 0.9, Math.PI / 2);
+  banco2(1.8, 1.95, 0);
+
+  // cerca de ripas verticais na divisa, com pórticos de madeira
+  const matRipa = M.fachada(0.08, 2.4 / 1.6);
+  function ripas(x0, x1, h) {
+    for (let x = x0 + 0.08; x < x1 - 0.03; x += 0.19) caixa(0.075, h, 0.05, matRipa, x, h / 2, ZC);
+    caixa(x1 - x0, 0.08, 0.1, M.escura(1, 0.2), (x0 + x1) / 2, h - 0.25, ZC - 0.04);
+    caixa(x1 - x0, 0.08, 0.1, M.escura(1, 0.2), (x0 + x1) / 2, 0.3, ZC - 0.04);
+  }
+  const poste = (x, h = 3.4) => caixa(0.16, h, 0.16, M.escura(0.3, 2), x, h / 2, ZC);
+  ripas(-3.95, -1.3, 1.9);
+  ripas(1.3, 2.32, 1.9);
+  ripas(3.98, 4.35, 1.9);
+  for (const x of [-5.0, -3.98, -1.25, 1.25, 2.38, 3.98]) poste(x);
+  caixa(1.2, 0.18, 0.2, M.escura(1, 0.2), -4.49, 3.32, ZC); // pórtico do corredor lateral
+  caixa(1.8, 0.18, 0.2, M.escura(1, 0.2), 3.18, 3.32, ZC); // pórtico do campanário
+  // número 2038 no poste do portão
+  const numero = texturaDe(canvasTexto([{ texto: '2038', fonte: "600 175px 'Times New Roman', Times, serif", x: 256, y: 185, cor: '#f3e4c6' }], 512, 240), 1, 1);
+  caixa(0.46, 0.24, 0.02, M.escura(), -1.25, 1.75, ZC + 0.09);
+  const placaNum = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.2), new THREE.MeshStandardMaterial({ map: numero, transparent: true, emissive: 0xffffff, emissiveMap: numero, emissiveIntensity: 0.3 }));
+  placaNum.position.set(-1.25, 1.75, ZC + 0.101);
+  cena.add(placaNum);
+
+  // campanário de madeira com sino (à direita do frontão)
+  const TX = 3.12, TZ = 1.5, TS = 0.52, TH = 5.5;
+  const matTorre = M.escura(0.3, 3);
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) caixa(0.17, TH, 0.17, matTorre, TX + sx * TS, TH / 2, TZ + sz * TS);
+  for (const y of [2.9, TH - 0.08]) {
+    for (const sz of [-1, 1]) caixa(TS * 2 + 0.2, 0.14, 0.12, matTorre, TX, y, TZ + sz * TS);
+    for (const sx of [-1, 1]) caixa(0.12, 0.14, TS * 2 + 0.2, matTorre, TX + sx * TS, y, TZ);
+  }
+  for (const sz of [-1, 1]) for (const sx of [-1, 1]) barra([TX + sx * TS, TH - 0.7, TZ + sz * TS], [TX + sx * (TS - 0.45), TH - 0.08, TZ + sz * TS], 0.08, matTorre); // mãos-francesas
+  caixa(0.1, 0.12, TS * 2, matTorre, TX, TH - 0.25, TZ); // travessa do sino
+  const perfilSino = [[0, 0.36], [0.05, 0.36], [0.09, 0.33], [0.12, 0.26], [0.14, 0.16], [0.17, 0.07], [0.22, 0.01], [0.23, -0.02], [0.2, -0.01], [0.0, 0.02]].map(([x, y]) => new THREE.Vector2(x, y));
+  const sino = sombra(new THREE.Mesh(new THREE.LatheGeometry(perfilSino, 32), new THREE.MeshStandardMaterial({ color: 0xb8893a, metalness: 0.85, roughness: 0.35, side: THREE.DoubleSide })));
+  sino.position.set(TX, TH - 0.68, TZ);
+  cena.add(sino);
+  barra([TX, TH - 0.32, TZ], [TX, TH - 0.26, TZ], 0.04, M.aco);
+  barra([TX + 0.02, TH - 0.7, TZ + 0.02], [TX + TS - 0.1, 1.2, TZ + TS - 0.05], 0.012, new THREE.MeshStandardMaterial({ color: 0xcbb68c, roughness: 0.9 })); // corda
+  // telhadinho do campanário (empena voltada para a rua)
+  const angT = 0.62, LT = (TS + 0.32) / Math.cos(angT);
+  for (const s of [-1, 1]) {
+    const tt = caixa(LT, 0.08, TS * 2 + 0.6, [matBorda, matBorda, matTelhado, M.madeira(1, 1), matBorda, matBorda], TX + s * (TS + 0.32) / 2, TH + 0.12 + ((TS + 0.32) / 2) * Math.tan(angT), TZ);
+    tt.rotation.z = -s * angT;
+  }
+  const empena = new THREE.Shape([new THREE.Vector2(-TS - 0.1, 0), new THREE.Vector2(TS + 0.1, 0), new THREE.Vector2(0, (TS + 0.1) * Math.tan(angT))]);
+  for (const sz of [-1, 1]) {
+    const e = sombra(new THREE.Mesh(new THREE.ExtrudeGeometry(empena, { depth: 0.05, bevelEnabled: false }), matTabuas()));
+    e.position.set(TX, TH + 0.02, TZ + sz * (TS + 0.02) - 0.025);
+    cena.add(e);
+  }
+  const luzSino = new THREE.SpotLight(0xffd9a0, 14, 7, 0.45, 0.8, 2);
+  luzSino.position.set(TX, 0.4, TZ + 0.9);
+  luzSino.target = sino;
+  cena.add(luzSino);
 
   // ---------- corredor lateral (1 m, à esquerda) ----------
-  const pisoCorr = sombra(new THREE.Mesh(new THREE.PlaneGeometry(1, 15.2), M.piso(1 / 2.4, 15.2 / 2.4)), false, true);
+  const pisoCorr = sombra(new THREE.Mesh(new THREE.PlaneGeometry(1, 17.6), M.piso(1 / 2.4, 17.6 / 2.4)), false, true);
   pisoCorr.rotation.x = -Math.PI / 2;
-  pisoCorr.position.set(-4.5, 0.06, -7.4);
+  pisoCorr.position.set(-4.5, 0.06, -6.2);
   cena.add(pisoCorr);
   // muro de madeira à esquerda do corredor
-  caixa(0.06, 3.1, 15.2, M.fachada(15.2 / 1.6, 3.1 / 1.6), CX0 - 0.03, 1.55, -7.4);
-  for (let z = 0.15; z > Z1; z -= 1.9) caixa(0.08, 3.15, 0.08, M.aco, CX0 + 0.02, 1.575, z);
-  // estrutura frontal (portão aberto) e pergolado
-  caixa(0.1, 3.3, 0.1, M.aco, CX0 + 0.02, 1.65, 0.2);
-  caixa(0.1, 3.3, 0.1, M.aco, CX1 - 0.03, 1.65, 0.24);
-  caixa(1.1, 0.12, 0.12, M.aco, -4.5, 3.25, 0.22);
+  caixa(0.06, 3.1, 17.6, M.fachada(17.6 / 1.6, 3.1 / 1.6), CX0 - 0.03, 1.55, -6.2);
+  for (let z = 2.4; z > Z1; z -= 1.9) caixa(0.08, 3.15, 0.08, M.escura(0.2, 2), CX0 + 0.02, 1.575, z);
+  // portão de ripas do corredor (aberto, encostado no muro) e pergolado de madeira
   const portao = new THREE.Group();
-  for (let k = 0; k < 7; k++) caixa(0.03, 2.8, 0.03, M.aco, 0, 1.45, -k * 0.13, portao);
-  caixa(0.04, 0.05, 0.85, M.aco, 0, 2.85, -0.39, portao);
-  caixa(0.04, 0.05, 0.85, M.aco, 0, 0.1, -0.39, portao);
-  portao.position.set(CX0 + 0.12, 0.05, 0.12);
+  for (let k = 0; k < 7; k++) caixa(0.07, 2.3, 0.04, M.fachada(0.05, 1.4), 0, 1.2, -0.06 - k * 0.12, portao);
+  for (const y of [0.35, 2.05]) caixa(0.05, 0.08, 0.86, M.escura(), 0.03, y, -0.43, portao);
+  portao.position.set(CX0 + 0.1, 0.05, ZC - 0.1);
   cena.add(portao);
-  for (let z = 0.2; z > Z1 - 0.1; z -= 1.5) caixa(1.05, 0.08, 0.06, M.aco, -4.5, 3.14, z);
-  caixa(0.06, 0.1, 15.3, M.aco, CX0 + 0.03, 3.14, -7.4);
-  const cobertura = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 15.3), M.policarbonato);
+  for (let z = ZC - 0.1; z > Z1 - 0.1; z -= 1.5) caixa(1.05, 0.08, 0.07, M.escura(0.5, 0.1), -4.5, 3.14, z);
+  caixa(0.07, 0.1, 17.8, M.escura(0.2, 8), CX0 + 0.03, 3.14, -6.3);
+  const cobertura = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 17.8), M.policarbonato);
   cobertura.rotation.x = -Math.PI / 2;
-  cobertura.position.set(-4.5, 3.2, -7.4);
+  cobertura.position.set(-4.5, 3.2, -6.3);
   cena.add(cobertura);
   for (let z = -1.0; z > Z1; z -= 3.2) {
     caixa(0.12, 0.03, 0.12, M.luz(0xffe2b8, 8), -4.5, 3.08, z);

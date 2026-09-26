@@ -1,6 +1,6 @@
-# Capela votiva a São Padre Pio — landing page
+# Capela dedicada a São Padre Pio — landing page
 
-Página de apresentação e arrecadação para a construção da Capela votiva a São Padre Pio,
+Página de apresentação e arrecadação para a construção da Capela dedicada a São Padre Pio,
 no local da sede da Obra Refúgio de Maria (Av. José Leon, 2038, Fortaleza–CE).
 
 ## O que publicar
@@ -25,7 +25,7 @@ no local da sede da Obra Refúgio de Maria (Av. José Leon, 2038, Fortaleza–CE
 Os arquivos-fonte ficam em `fonte/`:
 
 - `fonte/index.html`: textos e layout da página
-- `fonte/tour3d.js`: o modelo 3D. A nave mede 8 × 15 m, com bancos voltados para o altar em duas alas e corredor central. O corredor de 1 m fica à esquerda, segue ao lado da sede até o fundo e passa pela lojinha.
+- `fonte/tour3d.js`: o modelo 3D, que segue a imagem de referência da fachada (`fonte/img/fachada.webp`). Tem frontão com porta dupla em arco, placa "Capela de São Padre Pio · Comunidade Católica", medalhão com o retrato, campanário com sino à direita, cerca de ripas, jardim e caminho de pedras. O telhado é de telha colonial e, por dentro, tem forro e tesouras de madeira. A nave mede 8 × 15 m, com bancos voltados para o altar em duas alas e corredor central. O corredor de 1 m fica à esquerda, segue ao lado da sede até o fundo e passa pela lojinha.
 - `fonte/esculturas.js`: o Cristo crucificado esculpido em 3D.
 - `fonte/vendor/three/`: a cópia local do three.js 0.169.0 (licença MIT), só com os arquivos usados. Cada um foi conferido e é idêntico ao do CDN.
 - `fonte/img/`: as imagens. A fachada e o corredor já estão espelhados, com o corredor à esquerda. As fotos `interior.webp` e `lojinha.webp` foram renderizadas a partir do modelo 3D.
