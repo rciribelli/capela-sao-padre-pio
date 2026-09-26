@@ -1,0 +1,5 @@
+# Sempre LF: os hashes da CSP (montar.js) dependem do conteúdo exato dos scripts
+* text=auto eol=lf
+*.jpg binary
+*.png binary
+*.webp binary

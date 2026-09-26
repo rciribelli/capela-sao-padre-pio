@@ -1,7 +1,8 @@
-// Gera ../../index.html: a página inteira em UM arquivo (imagens e passeio 3D embutidos).
+// Gera ../../index.html: a página publicada (imagens embutidas + passeio 3D carregado de fonte/).
 // Uso: node montar.js
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const FONTE = path.resolve(__dirname, '..');
 const SAIDA = path.resolve(FONTE, '..', 'index.html');
@@ -15,18 +16,34 @@ function dataUri(nome) {
   }
   return cache[nome];
 }
+function trocar(html, de, para) {
+  if (!html.includes(de)) throw new Error('não encontrado em fonte/index.html: ' + de);
+  return html.split(de).join(para);
+}
 
-let html = fs.readFileSync(path.join(FONTE, 'index.html'), 'utf8');
+let html = fs.readFileSync(path.join(FONTE, 'index.html'), 'utf8').replace(/\r\n/g, '\n'); // sempre LF (os hashes da CSP dependem disso)
 html = html.replace(/(["'(])img\/([A-Za-z0-9_.-]+)/g, (_, aspas, nome) => aspas + dataUri(nome));
 
-// o tour3d.js importa ./esculturas.js; no arquivo único o código das esculturas vai junto
-const esculturas = fs.readFileSync(path.join(FONTE, 'esculturas.js'), 'utf8').replace(/^export /gm, '');
-let tour = fs.readFileSync(path.join(FONTE, 'tour3d.js'), 'utf8');
-const linhaImport = /^import \{[^}]*\} from '\.\/esculturas\.js';$/m;
-if (!linhaImport.test(tour)) throw new Error('import de esculturas.js não encontrado');
-tour = tour.replace(linhaImport, () => esculturas);
-if (tour.includes('</script')) throw new Error('tour3d.js não pode conter </script');
-html = html.replace('</body>', `<script type="text/plain" id="tour3d-fonte">\n${tour}</script>\n</body>`);
+// o passeio 3D e o three.js (cópia local em fonte/vendor/three) são servidos do próprio site
+html = trocar(html, '"./vendor/three/', '"./fonte/vendor/three/');
+html = trocar(html, "import('./tour3d.js')", "import('./fonte/tour3d.js')");
+
+// Política de segurança (CSP): só roda script do próprio site ou os scripts embutidos desta página,
+// identificados pelo hash. Qualquer script injetado ou alterado é bloqueado pelo navegador.
+const hashes = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)]
+  .map((m) => `'sha256-${crypto.createHash('sha256').update(m[1], 'utf8').digest('base64')}'`);
+const csp = [
+  "default-src 'none'",
+  `script-src 'self' ${hashes.join(' ')}`,
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src https://fonts.gstatic.com",
+  "img-src 'self' data:",
+  "connect-src 'self'",
+  "base-uri 'self'",
+  "form-action 'none'",
+  "object-src 'none'",
+].join('; ');
+html = trocar(html, '<meta charset="utf-8">', `<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="${csp}">`);
 
 fs.writeFileSync(SAIDA, html);
-console.log(`${SAIDA} — ${(fs.statSync(SAIDA).size / 1024).toFixed(0)} KB`);
+console.log(`${SAIDA} — ${(fs.statSync(SAIDA).size / 1024).toFixed(0)} KB · ${hashes.length} scripts embutidos autorizados na CSP`);

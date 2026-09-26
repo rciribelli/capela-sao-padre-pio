@@ -1,0 +1,1 @@
+three.js 0.169.0 (npm), licença MIT — cópia local para não depender de CDN de terceiros.

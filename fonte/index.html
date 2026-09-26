@@ -25,8 +25,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <script type="importmap">
 { "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+  "three": "./vendor/three/build/three.module.js",
+  "three/addons/": "./vendor/three/examples/jsm/"
 } }
 </script>
 <style>
@@ -789,11 +789,8 @@ const tempoTxt = document.getElementById('passeio-tempo-txt');
 let mod, passeio, t = 0, tocando = false, ultimo = 0, sujo = true, visivel = true, alta = false;
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
-async function importar() {
-  const fonte = document.getElementById('tour3d-fonte');
-  if (fonte) return import(URL.createObjectURL(new Blob([fonte.textContent], { type: 'text/javascript' })));
-  return import('./tour3d.js');
-}
+// o three.js fica numa cópia local (vendor/three), sem depender de CDN de terceiros
+const importar = () => import('./tour3d.js');
 
 function redimensionar() {
   if (!passeio) return;
