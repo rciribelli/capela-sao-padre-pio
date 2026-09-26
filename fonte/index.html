@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capela votiva a São Padre Pio · Obra Refúgio de Maria</title>
+<meta name="description" content="Ajude a construir a Capela votiva a São Padre Pio, no local da sede da Obra Refúgio de Maria, na Av. José Leon, 2038, em Fortaleza–CE. Doe via Pix.">
+<meta name="theme-color" content="#6a1a1f">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Obra Refúgio de Maria">
+<meta property="og:title" content="Capela votiva a São Padre Pio">
+<meta property="og:description" content="Ajude a erguer uma casa de oração dedicada a São Padre Pio, na sede da Obra Refúgio de Maria, em Fortaleza–CE. Doe via Pix.">
+<!-- Endereço provisório (GitHub Pages). Ao ativar o domínio próprio, troque as três URLs abaixo. -->
+<meta property="og:url" content="https://rciribelli.github.io/capela-sao-padre-pio/">
+<meta property="og:image" content="https://rciribelli.github.io/capela-sao-padre-pio/compartilhar.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ilustração da fachada da Capela votiva a São Padre Pio, com o selo da Obra Refúgio de Maria">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://rciribelli.github.io/capela-sao-padre-pio/">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }
+</script>
+<style>
+:root {
+  --vinho-950: #2e0b0d;
+  --vinho-900: #3f0f12;
+  --vinho-800: #561519;
+  --vinho-700: #6a1a1f;
+  --vermelho: #ad3336;
+  --vermelho-forte: #93282b;
+  --ouro: #c9a24a;
+  --ouro-claro: #e8cf8e;
+  --ouro-texto: #86651f;
+  --creme: #fbf7f0;
+  --pergaminho: #f3eadb;
+  --rosa: #f8ece8;
+  --tinta: #2b1d1e;
+  --suave: #6b5a56;
+  --linha: #e6d9c6;
+  --branco: #fff;
+  --ok: #1f7a4a;
+  --ok-fundo: #e9f5ee;
+  --alerta: #8f4d0c;
+  --alerta-fundo: #fdf2e2;
+  --whats: #1c8f4c;
+  --whats-forte: #167a40;
+  --raio: 14px;
+  --sombra: 0 18px 50px rgba(63, 15, 18, .16);
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Open Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { margin: 0; background: var(--creme); color: var(--tinta); font: 16px/1.7 var(--sans); font-feature-settings: "lnum" 1; -webkit-font-smoothing: antialiased; }
+[hidden] { display: none !important; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ouro); outline-offset: 3px; border-radius: 4px; }
+.wrap { width: min(1160px, 100% - 32px); margin-inline: auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- topo ---------- */
+.faixa { background: var(--vinho-900); color: var(--ouro-claro); font-size: 12.5px; letter-spacing: .08em; text-align: center; padding: 9px 16px; }
+.cabecalho { position: sticky; top: 0; z-index: 30; background: rgba(251, 247, 240, .92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha); }
+.cabecalho .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 72px; }
+.marca { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
+.marca img { width: 52px; height: 52px; }
+.marca b { display: block; font: 700 21px/1.1 var(--serif); color: var(--vinho-700); }
+.marca small { display: block; font-size: 11.5px; color: var(--suave); letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.menu { display: flex; align-items: center; gap: 26px; font-size: 14px; font-weight: 600; }
+.menu a { text-decoration: none; color: var(--tinta); }
+.menu a:not(.btn):hover { color: var(--vermelho); }
+
+/* ---------- botões ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 12px 22px; border-radius: 999px; border: 1.5px solid transparent; font: 700 15px/1.2 var(--sans); text-decoration: none; cursor: pointer; transition: background .2s, color .2s, border-color .2s, transform .2s; }
+.btn:hover { transform: translateY(-1px); }
+.btn-vermelho { background: var(--vermelho); color: #fff; }
+.btn-vermelho:hover { background: var(--vermelho-forte); }
+.btn-ouro { background: var(--ouro-claro); color: var(--vinho-900); }
+.btn-ouro:hover { background: #f1dca6; }
+.btn-contorno { border-color: rgba(255, 255, 255, .45); color: #fff; }
+.btn-contorno:hover { border-color: var(--ouro-claro); color: var(--ouro-claro); }
+.btn-contorno-escuro { border-color: var(--linha); color: var(--vinho-700); background: #fff; }
+.btn-contorno-escuro:hover { border-color: var(--vermelho); }
+.btn-whats { background: var(--whats); color: #fff; }
+.btn-whats:hover { background: var(--whats-forte); }
+.btn-pequeno { min-height: 40px; padding: 9px 16px; font-size: 14px; }
+.btn-bloco { width: 100%; }
+
+/* ---------- herói ---------- */
+.heroi { position: relative; color: #fff; background:
+  radial-gradient(ellipse 70% 60% at 85% 0%, rgba(201, 162, 74, .22), transparent 60%),
+  radial-gradient(ellipse 60% 50% at 0% 100%, rgba(173, 51, 54, .35), transparent 60%),
+  linear-gradient(165deg, var(--vinho-700) 0%, var(--vinho-800) 55%, var(--vinho-900) 100%);
+  padding: 72px 0 0; overflow: hidden; }
+.heroi::before { content: ''; position: absolute; inset: 0; opacity: .045; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 18v20M21 25h14' stroke='%23fff' stroke-width='1.4' fill='none'/%3E%3C/svg%3E"); }
+.heroi-texto { position: relative; text-align: center; max-width: 820px; margin: 0 auto; }
+.selo { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px; border: 1px solid rgba(232, 207, 142, .45); border-radius: 999px; color: var(--ouro-claro); font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.heroi h1 { font: 700 clamp(40px, 6.4vw, 76px)/1.02 var(--serif); letter-spacing: -.01em; margin: 22px 0 20px; }
+.heroi h1 em { font-style: italic; font-weight: 600; color: var(--ouro-claro); }
+.heroi p.lead { font-size: clamp(16px, 1.9vw, 18.5px); color: #f3e3df; margin: 0 auto 30px; max-width: 700px; }
+.acoes { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.nota-heroi { margin-top: 16px; font-size: 13.5px; color: #e2c9c4; }
+.fachada { position: relative; margin: 52px auto 0; width: min(1160px, 100% - 32px); }
+.fachada img { width: 100%; aspect-ratio: 1312 / 424; object-fit: cover; object-position: 60% 50%; border-radius: var(--raio) var(--raio) 0 0; border: 1px solid rgba(232, 207, 142, .35); border-bottom: 0; box-shadow: 0 -10px 60px rgba(0, 0, 0, .35); }
+.fachada figcaption { position: absolute; left: 16px; bottom: 14px; background: rgba(46, 11, 13, .78); color: #f6e9e6; font-size: 12.5px; padding: 6px 12px; border-radius: 999px; backdrop-filter: blur(4px); }
+
+/* ---------- fatos ---------- */
+.fatos { background: var(--branco); border-bottom: 1px solid var(--linha); }
+.fatos ul { list-style: none; margin: 0 auto; padding: 26px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.fatos li { text-align: center; padding: 6px 10px; }
+.fatos li + li { border-left: 1px solid var(--linha); }
+.fatos b { display: block; font: 700 clamp(26px, 3vw, 34px)/1.1 var(--serif); color: var(--vinho-700); }
+.fatos span { font-size: 13.5px; color: var(--suave); }
+
+/* ---------- seções ---------- */
+.secao { padding: clamp(64px, 9vw, 104px) 0; }
+.chamada { font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--vermelho); display: inline-flex; align-items: center; gap: 10px; }
+.chamada::before { content: ''; width: 26px; height: 1.5px; background: var(--ouro); }
+.secao h2 { font: 700 clamp(34px, 4.4vw, 52px)/1.08 var(--serif); color: var(--vinho-700); margin: 14px 0 16px; letter-spacing: -.005em; }
+.secao h2 em { font-style: italic; font-weight: 600; color: var(--vermelho); }
+.intro { max-width: 700px; color: var(--suave); font-size: 17px; margin: 0 0 40px; }
+.centro { text-align: center; }
+.centro .intro { margin-inline: auto; }
+
+/* capela votiva */
+.votiva { display: grid; grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; }
+.votiva p { color: #4a3a37; margin: 0 0 18px; }
+.cartao-apoio { margin-top: 26px; display: flex; gap: 16px; padding: 22px; background: var(--branco); border: 1px solid var(--linha); border-radius: var(--raio); }
+.cartao-apoio .ic { width: 44px; height: 44px; border-radius: 50%; background: var(--rosa); color: var(--vermelho); display: grid; place-items: center; flex: none; }
+.cartao-apoio b { display: block; color: var(--vinho-700); margin-bottom: 4px; }
+.cartao-apoio p { margin: 0; font-size: 15px; color: var(--suave); }
+.citacao { margin: 0; position: relative; background: linear-gradient(160deg, var(--vinho-700), var(--vinho-900)); color: #fff; border-radius: var(--raio); padding: 40px 36px; box-shadow: var(--sombra); overflow: hidden; }
+.citacao::after { content: '✝'; position: absolute; right: -10px; bottom: -60px; font: 240px/1 Georgia, serif; color: rgba(232, 207, 142, .08); }
+.citacao .aspas { font: 700 80px/0.6 var(--serif); color: var(--ouro); display: block; margin-bottom: 10px; }
+.citacao blockquote { margin: 0; font: italic 600 clamp(26px, 2.8vw, 32px)/1.3 var(--serif); }
+.citacao cite { display: block; margin-top: 20px; font-style: normal; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--ouro-claro); }
+
+/* projeto */
+.projeto { background: var(--branco); }
+.galeria { display: grid; grid-template-columns: 1.35fr 1fr; grid-template-rows: auto auto; gap: 18px; }
+.foto { margin: 0; position: relative; border-radius: var(--raio); overflow: hidden; background: var(--pergaminho); }
+.foto img { width: 100%; height: 100%; object-fit: cover; }
+.foto figcaption { position: absolute; left: 12px; right: 12px; bottom: 12px; background: rgba(46, 11, 13, .8); color: #fff; font-size: 13px; line-height: 1.45; padding: 8px 12px; border-radius: 10px; }
+.foto-grande { grid-row: span 2; min-height: 420px; }
+.foto-altar img { aspect-ratio: 1000 / 488; }
+.galeria-dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.foto-corredor img, .foto-loja img { aspect-ratio: 1 / 1; }
+.planta-bloco { margin-top: 56px; display: grid; grid-template-columns: 340px 1fr; gap: 56px; align-items: center; }
+.planta-cartao { background: var(--creme); border: 1px solid var(--linha); border-radius: var(--raio); padding: 16px; }
+.planta-cartao svg { width: 100%; height: auto; display: block; }
+.planta-cartao p { margin: 6px 0 0; font-size: 12.5px; color: var(--suave); text-align: center; }
+.planta-texto h3 { font: 700 34px/1.1 var(--serif); color: var(--vinho-700); margin: 0 0 22px; }
+.detalhes { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; list-style: none; padding: 0; }
+.detalhes li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: #4a3a37; }
+.detalhes li svg { color: var(--vermelho); margin-top: 4px; }
+.aviso-ilustrativo { margin: 26px 0 0; font-size: 13.5px; color: var(--suave); font-style: italic; }
+
+/* passeio 3D */
+.passeio { background: linear-gradient(180deg, var(--vinho-900), var(--vinho-950)); color: #fff; }
+.passeio h2 { color: #fff; }
+.passeio .chamada { color: var(--ouro-claro); }
+.passeio .intro { color: #e6cfca; }
+.player { position: relative; aspect-ratio: 16 / 9; background: #140506; border-radius: var(--raio); overflow: hidden; box-shadow: 0 30px 80px rgba(0, 0, 0, .45); border: 1px solid rgba(232, 207, 142, .25); user-select: none; }
+.player canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.player-cartaz { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 12px; text-align: center; z-index: 4; }
+.player-cartaz img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.45) saturate(1.1); }
+.player-cartaz > *:not(img) { position: relative; }
+.player-cartaz small { color: #eed9d4; font-size: 13px; }
+.num { font-family: var(--sans); font-size: .82em; font-weight: 700; }
+.btn-play { width: 84px; height: 84px; border-radius: 50%; border: 0; background: var(--ouro-claro); color: var(--vinho-900); display: grid; place-items: center; cursor: pointer; box-shadow: 0 10px 40px rgba(0, 0, 0, .4); transition: transform .2s; }
+.btn-play:hover { transform: scale(1.06); }
+.btn-play svg { width: 34px; height: 34px; fill: currentColor; stroke: none; margin-left: 5px; }
+.player-cartaz strong { font: 700 clamp(22px, 3vw, 30px)/1.2 var(--serif); }
+.player-escuro { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 1; }
+.player-cartela { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; text-align: center; gap: 6px; padding: 20px; background: rgba(52, 10, 14, .55); opacity: 0; pointer-events: none; z-index: 2; }
+.player-cartela img { width: clamp(56px, 11%, 120px); }
+.player-cartela strong { font: 700 clamp(22px, 4.2vw, 50px)/1.1 var(--serif); }
+.player-cartela span { color: var(--ouro-claro); font-weight: 600; font-size: clamp(12px, 1.6vw, 18px); }
+.player-cartela em { font: italic 600 clamp(16px, 2.4vw, 28px) var(--serif); color: #f7ebe6; }
+.player-carregando { position: absolute; inset: 0; display: none; place-items: center; z-index: 5; background: rgba(20, 5, 6, .75); font-weight: 600; color: var(--ouro-claro); }
+.player-controles { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: linear-gradient(transparent, rgba(0, 0, 0, .65)); opacity: 0; transition: opacity .3s; }
+.player.ativo .player-controles { opacity: 1; }
+.player-controles button { width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .14); color: #fff; display: grid; place-items: center; cursor: pointer; flex: none; }
+.player-controles button:hover { background: rgba(255, 255, 255, .26); }
+.player-controles svg { width: 18px; height: 18px; }
+.player-controles input { flex: 1; accent-color: var(--ouro-claro); min-width: 60px; }
+.player-controles output { font-size: 13px; font-variant-numeric: tabular-nums; color: #eee; min-width: 76px; text-align: right; }
+.nota-passeio { margin: 16px 0 0; text-align: center; font-size: 13.5px; color: #d9bfba; }
+
+/* missão */
+.cartoes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.cartao { background: var(--branco); border: 1px solid var(--linha); border-radius: var(--raio); padding: 28px 24px; transition: transform .2s, box-shadow .2s; }
+.cartao:hover { transform: translateY(-3px); box-shadow: var(--sombra); }
+.cartao .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--rosa); color: var(--vermelho); display: grid; place-items: center; margin-bottom: 18px; }
+.cartao .ic svg { width: 26px; height: 26px; stroke-width: 1.7; }
+.cartao h3 { font: 700 25px/1.15 var(--serif); color: var(--vinho-700); margin: 0 0 8px; }
+.cartao p { margin: 0; font-size: 15px; color: var(--suave); }
+
+/* doação */
+.doar { background: var(--pergaminho); }
+.doar-grade { display: grid; grid-template-columns: .95fr 1.05fr; gap: 22px; align-items: stretch; }
+.painel { background: var(--branco); border-radius: 20px; border: 1px solid var(--linha); box-shadow: var(--sombra); padding: 30px; }
+.pix-topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid var(--linha); }
+.pix-topo img { height: 40px; width: auto; }
+.qr { width: min(100%, 300px); margin: 22px auto 8px; padding: 10px; border: 1px solid var(--linha); border-radius: 16px; background: #fff; }
+.qr img { width: 100%; image-rendering: pixelated; }
+.pix-conta { text-align: center; font-size: 14px; color: var(--suave); margin: 0 0 18px; }
+.pix-conta b { color: var(--tinta); }
+.copia { display: grid; gap: 10px; }
+.copia details { font-size: 13px; color: var(--suave); }
+.copia summary { cursor: pointer; text-align: center; }
+.copia code { display: block; margin-top: 8px; padding: 10px 12px; background: var(--creme); border: 1px dashed var(--linha); border-radius: 10px; font: 12px/1.5 ui-monospace, Consolas, monospace; word-break: break-all; color: var(--tinta); }
+.passos { list-style: none; counter-reset: p; margin: 22px 0 0; padding: 0; display: grid; gap: 10px; }
+.passos li { counter-increment: p; display: flex; gap: 12px; align-items: flex-start; font-size: 14.5px; color: #4a3a37; }
+.passos li::before { content: counter(p); flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--vinho-700); color: #fff; font: 700 13px/26px var(--sans); text-align: center; }
+.painel h3 { font: 700 30px/1.15 var(--serif); color: var(--vinho-700); margin: 0 0 6px; }
+.painel > p { margin: 0 0 20px; color: var(--suave); font-size: 15px; }
+.dados { margin: 0; display: grid; border: 1px solid var(--linha); border-radius: 14px; overflow: hidden; }
+.dados div { display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 13px 16px; }
+.dados div:nth-child(odd) { background: var(--creme); }
+.dados dt { font-size: 13px; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: .06em; padding-top: 2px; }
+.dados dd { margin: 0; font-weight: 700; color: var(--tinta); overflow-wrap: anywhere; }
+.dados dd small { display: block; font-weight: 400; color: var(--suave); font-size: 12.5px; }
+.caixa-ok, .caixa-alerta { display: flex; gap: 12px; border-radius: 14px; padding: 16px 18px; margin-top: 16px; font-size: 15px; }
+.caixa-ok { background: var(--ok-fundo); color: #184f33; }
+.caixa-ok svg { color: var(--ok); margin-top: 3px; }
+.caixa-alerta { background: var(--alerta-fundo); color: #5e3a0f; flex-wrap: wrap; }
+.caixa-alerta svg { color: var(--alerta); margin-top: 3px; }
+.caixa-alerta > div { flex: 1; min-width: 200px; }
+.caixa-alerta .btn { margin-top: 12px; }
+.copiado { font-size: 13.5px; color: var(--ok); text-align: center; min-height: 1.2em; margin: 0; font-weight: 600; }
+
+/* outras formas */
+.formas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.forma { display: flex; flex-direction: column; gap: 10px; background: var(--branco); border: 1px solid var(--linha); border-radius: var(--raio); padding: 28px; }
+.forma h3 { display: flex; align-items: center; gap: 10px; font: 700 26px/1.15 var(--serif); color: var(--vinho-700); margin: 0; }
+.forma h3 svg { color: var(--vermelho); }
+.forma p { margin: 0; color: var(--suave); font-size: 15px; flex: 1; }
+.forma .acoes { justify-content: flex-start; margin-top: 8px; }
+
+/* local */
+.local { background: var(--branco); }
+.local-cartao { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; background: linear-gradient(160deg, var(--rosa), var(--pergaminho)); border: 1px solid var(--linha); border-radius: 20px; padding: clamp(26px, 4vw, 44px); }
+.local-cartao h2 { margin-top: 10px; }
+.local-cartao p { margin: 0; color: #4a3a37; font-size: 17px; }
+.local-cartao .end { display: flex; gap: 10px; align-items: flex-start; font-weight: 700; color: var(--vinho-700); font-size: 19px; margin-bottom: 8px; }
+
+/* dúvidas */
+.faq { max-width: 860px; margin: 0 auto; }
+.faq details { background: var(--branco); border: 1px solid var(--linha); border-radius: 12px; margin-bottom: 10px; }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 18px 22px; font: 700 22px/1.25 var(--serif); color: var(--vinho-700); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; font: 400 26px/1 var(--sans); color: var(--vermelho); flex: none; }
+.faq details[open] summary::after { content: '−'; }
+.faq details p { margin: 0; padding: 0 22px 20px; color: #4a3a37; font-size: 15.5px; }
+
+/* encerramento e rodapé */
+.encerramento { text-align: center; color: #fff; background:
+  radial-gradient(ellipse 60% 70% at 50% 0%, rgba(201, 162, 74, .2), transparent 65%),
+  linear-gradient(170deg, var(--vinho-700), var(--vinho-900)); }
+.encerramento h2 { color: #fff; }
+.encerramento .chamada { color: var(--ouro-claro); }
+.encerramento p { max-width: 620px; margin: 0 auto 30px; color: #f0dcd8; font-size: 17px; }
+.encerramento .jaculatoria { font: italic 600 clamp(28px, 4vw, 44px)/1.2 var(--serif); color: var(--ouro-claro); margin: 44px 0 0; }
+.rodape { background: var(--vinho-950); color: #d8c2bd; font-size: 14px; padding: 36px 0 90px; }
+.rodape .wrap { display: flex; flex-wrap: wrap; gap: 20px 40px; justify-content: space-between; align-items: center; }
+.rodape .marca b { color: #fff; }
+.rodape .marca small { color: #cdb1ab; }
+.rodape a { color: var(--ouro-claro); }
+.rodape ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.rodape .legal { width: 100%; border-top: 1px solid rgba(255, 255, 255, .1); padding-top: 18px; font-size: 12.5px; color: #b39893; }
+
+/* botão flutuante do WhatsApp */
+.whats-flutuante { position: fixed; right: 18px; bottom: 18px; z-index: 40; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px 12px 14px; border-radius: 999px; background: var(--whats); color: #fff; text-decoration: none; font-weight: 700; font-size: 14.5px; box-shadow: 0 12px 30px rgba(0, 0, 0, .25); }
+.whats-flutuante:hover { background: var(--whats-forte); }
+.whats-flutuante svg { width: 26px; height: 26px; }
+
+@media (max-width: 980px) {
+  .menu a:not(.btn) { display: none; }
+  .votiva, .doar-grade { grid-template-columns: 1fr; gap: 28px; }
+  .cartoes { grid-template-columns: repeat(2, 1fr); }
+  .planta-bloco { grid-template-columns: 300px 1fr; gap: 36px; }
+}
+@media (max-width: 720px) {
+  .cabecalho .wrap { height: 64px; }
+  .marca img { width: 42px; height: 42px; }
+  .marca b { font-size: 18px; }
+  .menu .btn { min-height: 40px; padding: 8px 14px; font-size: 13.5px; }
+  .heroi { padding-top: 48px; }
+  .fachada { margin-top: 36px; width: 100%; }
+  .fachada img { aspect-ratio: 2.1 / 1; object-position: 25% 50%; border-radius: 0; border-inline: 0; }
+  .fachada figcaption { position: static; border-radius: 0; text-align: center; background: var(--vinho-950); padding: 8px 12px; }
+  .fatos ul { grid-template-columns: 1fr 1fr; gap: 0; padding: 8px 0; }
+  .fatos li { padding: 16px 8px; }
+  .fatos li + li { border-left: 0; }
+  .fatos li:nth-child(even) { border-left: 1px solid var(--linha); }
+  .fatos li:nth-child(n+3) { border-top: 1px solid var(--linha); }
+  .galeria { grid-template-columns: 1fr; }
+  .foto-grande { grid-row: auto; min-height: 0; }
+  .foto-grande img { aspect-ratio: 550 / 388; }
+  .planta-bloco { grid-template-columns: 1fr; }
+  .planta-cartao { max-width: 380px; width: 100%; margin: 0 auto; }
+  .detalhes, .cartoes, .formas { grid-template-columns: 1fr; }
+  .painel { padding: 22px 18px; }
+  .dados div { grid-template-columns: 1fr; gap: 2px; }
+  .local-cartao { grid-template-columns: 1fr; }
+  .player { border-radius: 10px; }
+  .player-controles { padding: 8px 10px; gap: 8px; }
+  .player-controles output { display: none; }
+  .whats-flutuante span { display: none; }
+  .whats-flutuante { padding: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-cruz" viewBox="0 0 24 24"><path d="M12 2.5v19M6.5 8h11"/></symbol>
+  <symbol id="i-carta" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5s7-6.1 7-11.8a7 7 0 1 0-14 0c0 5.7 7 11.8 7 11.8z"/><circle cx="12" cy="9.7" r="2.6"/></symbol>
+  <symbol id="i-copiar" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+  <symbol id="i-partilhar" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
+  <symbol id="i-coracao" viewBox="0 0 24 24"><path d="M12 20.5s-7.6-4.5-9.4-9.2C1.1 7.6 3.4 4 7.1 4c2.1 0 3.6 1.1 4.9 2.9C13.3 5.1 14.8 4 16.9 4c3.7 0 6 3.6 4.5 7.3-1.8 4.7-9.4 9.2-9.4 9.2z"/></symbol>
+  <symbol id="i-cadastro" viewBox="0 0 24 24"><path d="M15 20v-1.5a4 4 0 0 0-4-4H6.5a4 4 0 0 0-4 4V20"/><circle cx="8.8" cy="7.5" r="3.8"/><path d="M19 8v6M22 11h-6"/></symbol>
+  <symbol id="i-alerta" viewBox="0 0 24 24"><path d="M10.3 3.9 2.4 17.6A2 2 0 0 0 4.1 20.6h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4.2M12 17h.01"/></symbol>
+  <symbol id="i-calice" viewBox="0 0 24 24"><path d="M6.5 3h11c0 5.2-2.3 8.5-5.5 8.5S6.5 8.2 6.5 3zM12 11.5v6.5M8 21h8M9.5 18h5"/></symbol>
+  <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3"/><path d="M12 1.8v1.6M12 13.6v1.6M5.3 8.5H3.7M20.3 8.5h-1.6M7.3 3.8l1.1 1.1M15.6 12.1l1.1 1.1M7.3 13.2l1.1-1.1M15.6 4.9l1.1-1.1M12 15.2V21M8.5 21h7"/></symbol>
+  <symbol id="i-livro" viewBox="0 0 24 24"><path d="M12 6.5C10.3 5 7.8 4.3 4 4.5v14c3.8-.2 6.3.5 8 2 1.7-1.5 4.2-2.2 8-2v-14c-3.8-.2-6.3.5-8 2zM12 6.5v14"/></symbol>
+  <symbol id="i-empresa" viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-4 7 4v13M9.5 21v-5h5v5M9 11h.01M15 11h.01"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></symbol>
+  <symbol id="i-pausa" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-tela" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+  <symbol id="i-whats" viewBox="0 0 24 24"><path d="M3.6 20.4 5 16.2A8.6 8.6 0 1 1 8 19.1z" fill="none"/><path d="M9.3 8.1c.3-.6.6-.6.9-.6h.5c.2 0 .4 0 .6.5l.8 1.8c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.3 0 .6.5.9 1.5 1.9 2.6 2.4.3.1.4.1.6-.1l.6-.8c.2-.2.4-.2.6-.1l1.8.8c.3.1.4.3.4.4 0 .5-.2 1.3-.9 1.7-.7.4-1.6.5-2.9 0-1.7-.6-3.4-2.1-4.4-3.7-.8-1.3-.9-2.4-.6-3.2.1-.4.3-.7.4-.9z" fill="currentColor" stroke="none"/></symbol>
+</svg>
+
+<div class="faixa">Campanha para a construção da Capela votiva a São Padre Pio · Fortaleza–CE</div>
+
+<header class="cabecalho">
+  <div class="wrap">
+    <a class="marca" href="#inicio" aria-label="Início">
+      <img src="img/logo-orm.webp" alt="Selo da Obra Refúgio de Maria" width="52" height="52">
+      <span><b>Obra Refúgio de Maria</b><small>Capela votiva a São Padre Pio</small></span>
+    </a>
+    <nav class="menu" aria-label="Seções da página">
+      <a href="#capela">A capela</a>
+      <a href="#projeto">O projeto</a>
+      <a href="#passeio">Passeio 3D</a>
+      <a href="#duvidas">Dúvidas</a>
+      <a class="btn btn-vermelho btn-pequeno" href="#doar">Doar via Pix</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="heroi">
+    <div class="wrap heroi-texto">
+      <span class="selo"><svg class="i"><use href="#i-cruz"/></svg> Capela votiva · Sede da Obra Refúgio de Maria</span>
+      <h1>Ajude a erguer a Capela votiva a <em>São Padre Pio</em></h1>
+      <p class="lead">No local da nossa sede, na Av. José Leon, 2038, em Fortaleza, vamos construir uma capela dedicada a São Padre Pio de Pietrelcina: um lugar de oração, de Santa Missa e de adoração ao Santíssimo, de portas abertas para todos. Sua doação ajuda a tornar esse projeto realidade.</p>
+      <div class="acoes">
+        <a class="btn btn-ouro" href="#doar">Doar via Pix</a>
+        <a class="btn btn-contorno" href="#projeto">Conhecer o projeto</a>
+      </div>
+      <p class="nota-heroi">Toda oferta e toda oração fazem diferença.</p>
+    </div>
+    <figure class="fachada">
+      <img src="img/fachada.webp" width="1312" height="424" alt="Ilustração da fachada da capela: toda em madeira, com o letreiro “Capela São Padre Pio”, duas cruzes iluminadas, portas abertas mostrando o altar e, à esquerda, o corredor lateral coberto.">
+      <figcaption>Imagem ilustrativa · corredor lateral à esquerda, com acesso ao fundo</figcaption>
+    </figure>
+  </section>
+
+  <section class="fatos" aria-label="O projeto em números">
+    <ul class="wrap">
+      <li><b>8 × 15 m</b><span>nave da capela</span></li>
+      <li><b>1 m</b><span>corredor lateral, à esquerda</span></li>
+      <li><b>60 a 70</b><span>pessoas sentadas (estimativa)</span></li>
+      <li><b>Nº 2038</b><span>Av. José Leon, na nossa sede</span></li>
+    </ul>
+  </section>
+
+  <section class="secao" id="capela">
+    <div class="wrap votiva">
+      <div>
+        <span class="chamada">Por que uma capela votiva</span>
+        <h2>Um voto de fé que se torna <em>casa de oração</em></h2>
+        <p>Uma capela votiva nasce de um voto: é oferecida a Deus como sinal de gratidão e de confiança, sob a proteção de um santo. A nossa será dedicada a São Padre Pio de Pietrelcina, o frade capuchinho que passou a vida entre o altar e o confessionário e ensinou tantas pessoas a rezar com confiança.</p>
+        <p>Ela será construída no local da sede da Obra Refúgio de Maria, comunidade católica que evangeliza pela consagração a Jesus pelas mãos de Maria, segundo o método de São Luís Maria Grignion de Montfort. Também evangelizamos pela consagração total a São José, além de outros projetos.</p>
+        <p>Queremos que seja uma casa simples e acolhedora, onde qualquer pessoa possa entrar, rezar, entregar suas intenções e encontrar consolo.</p>
+        <div class="cartao-apoio">
+          <span class="ic"><svg class="i"><use href="#i-carta"/></svg></span>
+          <div>
+            <b>Com o apoio da paróquia</b>
+            <p>O projeto tem o apoio do pároco da Paróquia Nossa Senhora da Glória, Pe. Helano Samy da Silva Holanda. Em carta de 19 de junho de 2026, ele convida a comunidade paroquial, empresas, benfeitores e apoiadores a participar da construção.</p>
+          </div>
+        </div>
+      </div>
+      <figure class="citacao">
+        <span class="aspas" aria-hidden="true">“</span>
+        <blockquote>A oração é a melhor arma que temos; é a chave que abre o coração de Deus.</blockquote>
+        <cite>São Padre Pio de Pietrelcina</cite>
+      </figure>
+    </div>
+  </section>
+
+  <section class="secao projeto" id="projeto">
+    <div class="wrap">
+      <span class="chamada">O projeto</span>
+      <h2>Simples, acolhedora e <em>pensada para a oração</em></h2>
+      <p class="intro">Uma nave de 8 metros de frente por 15 de profundidade com interior sereno. Ao lado, um corredor externo que segue até as nossas salas e lojinha.</p>
+
+      <div class="galeria">
+        <figure class="foto foto-grande">
+          <img src="img/interior.webp" width="1100" height="775" loading="lazy" alt="Interior da capela em 3D: bancos de madeira voltados para o altar, em duas alas, com corredores central e laterais livres; arandelas de luz quente; ao fundo, o altar com o crucifixo, a imagem de Nossa Senhora de Fátima e o quadro de São Padre Pio.">
+          <figcaption>Bancos em madeira, em duas alas, com corredores central e laterais livres</figcaption>
+        </figure>
+        <figure class="foto foto-altar">
+          <img src="img/presbiterio.webp" width="1000" height="488" loading="lazy" alt="Presbitério em 3D: altar com toalha branca e velas, crucifixo sobre painel de madeira, a imagem de Nossa Senhora de Fátima à esquerda e o quadro de São Padre Pio à direita.">
+          <figcaption>Presbitério: altar, crucifixo, Nossa Senhora e São Padre Pio</figcaption>
+        </figure>
+        <div class="galeria-dupla">
+          <figure class="foto foto-corredor">
+            <img src="img/corredor.webp" width="248" height="254" loading="lazy" alt="Corredor lateral externo, coberto e iluminado, entre o muro de madeira e a parede da capela, levando ao fundo do terreno.">
+            <figcaption>Corredor externo de 1 m, até o fundo</figcaption>
+          </figure>
+          <figure class="foto foto-loja">
+            <img src="img/lojinha.webp" width="800" height="800" loading="lazy" alt="Lojinha em 3D: móvel de madeira que rodeia toda a sala, com prateleiras iluminadas cheias de livros e, sobre o balcão, Bíblias, terços, imagens, quadros, crucifixos e velas.">
+            <figcaption>Lojinha da Obra Refúgio de Maria no corredor lateral</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="planta-bloco">
+        <div class="planta-cartao">
+            <svg viewBox="0 0 300 560" role="img" aria-labelledby="planta-titulo">
+              <title id="planta-titulo">Planta ilustrativa: nave de 8,00 por 15,00 metros com o altar ao fundo e bancos de madeira voltados para o altar em duas alas, com corredores central e laterais livres. À esquerda, o corredor lateral externo de 1,00 metro segue ao lado da sede até o fundo e passa pela lojinha, que tem porta de vidro de correr. A entrada principal fica voltada para a Av. José Leon.</title>
+              <defs>
+                <pattern id="lajota" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#f4ecdf"/><path d="M10 0H0V10" fill="none" stroke="#e3d6c1" stroke-width=".7"/></pattern>
+                <marker id="seta" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#6a1a1f"/></marker>
+              </defs>
+              <!-- escala: 20 px = 1 m; nave x 70–230 (8 m), corredor x 50–70 (1 m); frente y 480, fundo da nave y 180 (15 m) -->
+              <rect x="50" y="40" width="20" height="440" fill="#efe7da"/>
+              <g fill="#5f8a4f"><circle cx="54" cy="80" r="2.6"/><circle cx="54" cy="130" r="2.6"/><circle cx="54" cy="210" r="2.6"/><circle cx="54" cy="270" r="2.6"/><circle cx="54" cy="330" r="2.6"/><circle cx="54" cy="390" r="2.6"/><circle cx="54" cy="450" r="2.6"/></g>
+              <!-- sede (existente) e lojinha -->
+              <rect x="70" y="60" width="160" height="118" fill="#f1e9dc" stroke="#b9a58a" stroke-width="1.2"/>
+              <text x="186" y="112" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="9" fill="#6b5a56" letter-spacing="1.5">SEDE</text>
+              <text x="186" y="124" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="7.5" fill="#6b5a56">(salas)</text>
+              <rect x="72" y="115" width="62" height="62" fill="#e9d2b0" stroke="#7a4a2c" stroke-width="2"/>
+              <path d="M76 119h54M76 119v54M130 119v54M76 173h54" stroke="#8a5a36" stroke-width="3.5" fill="none" opacity=".75"/>
+              <text x="103" y="150" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="8.5" fill="#6a1a1f" font-weight="700">Lojinha</text>
+              <path d="M70 130v32" stroke="#7fb3c9" stroke-width="3"/>
+              <!-- nave -->
+              <rect x="70" y="180" width="160" height="300" fill="url(#lajota)"/>
+              <rect x="98" y="180" width="104" height="52" fill="#e9dcc6"/>
+              <rect x="133" y="204" width="34" height="14" rx="1.5" fill="#fff" stroke="#6a4a32" stroke-width="1.1"/>
+              <text x="150" y="228" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="7" fill="#6b5a56">ALTAR</text>
+              <path d="M150 182v11M145.5 186h9" stroke="#6a1a1f" stroke-width="1.8"/>
+              <circle cx="95" cy="192" r="4.5" fill="#f3efe6" stroke="#c9a24a" stroke-width="1.4"/>
+              <rect x="198" y="181" width="14" height="3.5" fill="#3d2a22"/>
+              <rect x="188" y="224" width="8" height="6" fill="#6a4a32"/>
+              <g fill="#7a4a2c">
+                <rect x="89" y="248" width="46" height="8" rx="1.5"/><rect x="89" y="267" width="46" height="8" rx="1.5"/><rect x="89" y="286" width="46" height="8" rx="1.5"/><rect x="89" y="305" width="46" height="8" rx="1.5"/>
+                <rect x="89" y="324" width="46" height="8" rx="1.5"/><rect x="89" y="343" width="46" height="8" rx="1.5"/><rect x="89" y="362" width="46" height="8" rx="1.5"/><rect x="89" y="381" width="46" height="8" rx="1.5"/>
+                <rect x="165" y="248" width="46" height="8" rx="1.5"/><rect x="165" y="267" width="46" height="8" rx="1.5"/><rect x="165" y="286" width="46" height="8" rx="1.5"/><rect x="165" y="305" width="46" height="8" rx="1.5"/>
+                <rect x="165" y="324" width="46" height="8" rx="1.5"/><rect x="165" y="343" width="46" height="8" rx="1.5"/><rect x="165" y="362" width="46" height="8" rx="1.5"/><rect x="165" y="381" width="46" height="8" rx="1.5"/>
+              </g>
+              <text x="150" y="318" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="7.5" fill="#6b5a56" letter-spacing="1" transform="rotate(-90 150 318)">CORREDOR CENTRAL</text>
+              <path d="M70 180h160v300H182M118 480H70V180" fill="none" stroke="#3d2a22" stroke-width="4"/>
+              <path d="M98 480h20M182 480h20" stroke="#c9a24a" stroke-width="4" stroke-dasharray="2 2"/>
+              <rect x="118" y="482" width="64" height="8" fill="#e3d6c1"/>
+              <path d="M50 40V480" stroke="#8a5a36" stroke-width="2.6"/>
+              <text x="60" y="330" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="8" fill="#6a1a1f" font-weight="700" transform="rotate(-90 60 330)">CORREDOR LATERAL 1,00 m</text>
+              <path d="M60 58V26" stroke="#6a1a1f" stroke-width="1.5" marker-end="url(#seta)"/>
+              <text x="60" y="16" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="9" fill="#6a1a1f" font-weight="700">Acesso ao fundo</text>
+              <!-- cotas -->
+              <g stroke="#6b5a56" stroke-width="1"><path d="M70 504h160M70 499v10M230 499v10"/><path d="M252 180v300M247 180h10M247 480h10"/></g>
+              <rect x="130" y="497" width="40" height="13" fill="#fbf7f0"/>
+              <text x="150" y="507" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="9.5" fill="#2b1d1e" font-weight="700">8,00 m</text>
+              <text x="266" y="330" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="9.5" fill="#2b1d1e" font-weight="700" transform="rotate(-90 266 330)">15,00 m</text>
+              <path d="M150 536v-20" stroke="#6a1a1f" stroke-width="1.5" marker-end="url(#seta)"/>
+              <text x="150" y="547" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="9.5" fill="#6a1a1f" font-weight="700">Entrada principal</text>
+              <text x="150" y="558" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="8.5" fill="#6b5a56">Av. José Leon (rua)</text>
+            </svg>
+            <p>Planta ilustrativa, sem escala técnica</p>
+        </div>
+        <div class="planta-texto">
+          <h3>Como será a capela</h3>
+      <ul class="detalhes">
+        <li><svg class="i"><use href="#i-check"/></svg>Fachada toda em madeira e iluminação em LED</li>
+                <li><svg class="i"><use href="#i-check"/></svg>Bancos em madeira, em duas alas, com corredor central e lateral livre para a circulação</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Capacidade estimada de 60 a 70 pessoas sentadas</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Corredor lateral externo de 1,00 m, à esquerda, que segue até o fundo</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Lojinha com os mais variados itens católicos no caminho do corredor</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Presbitério com altar, crucifixo, Nossa Senhora e São Padre Pio</li>
+      </ul>
+        <p class="aviso-ilustrativo">Imagens, planta e passeio 3D são ilustrativos. O projeto final pode passar por ajustes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao passeio" id="passeio">
+    <div class="wrap">
+      <div class="centro">
+        <span class="chamada">Passeio virtual 3D</span>
+        <h2>Entre na capela antes mesmo de ela existir</h2>
+        <p class="intro">Um passeio em 3D feito com as medidas do projeto: da calçada até o altar, passando pelo corredor lateral.</p>
+      </div>
+      <div class="player" id="player">
+        <canvas id="passeio-canvas" aria-label="Passeio 3D pela futura Capela votiva a São Padre Pio"></canvas>
+        <div class="player-escuro" id="passeio-escuro"></div>
+        <div class="player-cartela" id="passeio-cartela" aria-live="polite">
+          <img src="img/logo-orm.webp" alt="">
+          <strong></strong><span></span><em hidden>São Padre Pio, rogai por nós!</em>
+        </div>
+        <div class="player-controles">
+          <button type="button" id="passeio-pp" aria-label="Pausar"><svg class="i"><use href="#i-pausa"/></svg></button>
+          <input type="range" id="passeio-tempo" min="0" max="50" step="0.05" value="0" aria-label="Posição do passeio">
+          <output id="passeio-tempo-txt">0:00 / 0:50</output>
+          <button type="button" id="passeio-tela" aria-label="Tela cheia"><svg class="i"><use href="#i-tela"/></svg></button>
+        </div>
+        <div class="player-carregando" id="passeio-carregando">Montando a capela em 3D…</div>
+        <div class="player-cartaz" id="passeio-cartaz">
+          <img src="img/passeio-capa.webp" alt="">
+          <button type="button" class="btn-play" id="passeio-iniciar" aria-label="Iniciar passeio 3D"><svg><use href="#i-play"/></svg></button>
+          <strong>Iniciar passeio <span class="num">3D</span></strong>
+          <small>Cerca de 50 segundos · funciona no celular e no computador</small>
+        </div>
+      </div>
+      <p class="nota-passeio">Representação ilustrativa, gerada por computador com as medidas do projeto.</p>
+    </div>
+  </section>
+
+  <section class="secao" id="missao">
+    <div class="wrap">
+      <div class="centro">
+        <span class="chamada">Para que servirá</span>
+        <h2>Uma capela a serviço <em>da fé e das pessoas</em></h2>
+        <p class="intro">Conforme a carta do pároco, a capela vai acolher a vida de oração e de serviço da comunidade, aberta a todos.</p>
+      </div>
+      <div class="cartoes">
+        <article class="cartao"><span class="ic"><svg class="i"><use href="#i-calice"/></svg></span><h3>Santa Missa semanal</h3><p>A Eucaristia no centro da vida da comunidade, toda semana.</p></article>
+        <article class="cartao"><span class="ic"><svg class="i"><use href="#i-sol"/></svg></span><h3>Adoração ao Santíssimo</h3><p>Momentos de silêncio e de oração diante de Jesus Eucarístico.</p></article>
+        <article class="cartao"><span class="ic"><svg class="i"><use href="#i-livro"/></svg></span><h3>Evangelização</h3><p>Encontros, formação e atividades de evangelização abertos a todos.</p></article>
+        <article class="cartao"><span class="ic"><svg class="i"><use href="#i-coracao"/></svg></span><h3>Ações sociais</h3><p>Um ponto de apoio para servir quem mais precisa e fortalecer a vida pastoral da região.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao doar" id="doar">
+    <div class="wrap">
+      <div class="centro">
+        <span class="chamada">Doe via Pix</span>
+        <h2>Sua oferta vira <em>parede, telhado e altar</em></h2>
+        <p class="intro">Aponte a câmera do app do seu banco para o QR Code ou use o Pix Copia e Cola. O valor é você quem escolhe.</p>
+      </div>
+      <div class="doar-grade">
+        <div class="painel">
+          <div class="pix-topo">
+            <img src="img/logo-sicredi.png" alt="Banco Sicredi" width="161" height="44">
+            <img src="img/logo-pix.png" alt="Pix" width="110" height="44">
+          </div>
+          <div class="qr"><img src="img/pix-qrcode.png" width="678" height="680" alt="QR Code Pix da Obra Refúgio de Maria para doações à Capela votiva a São Padre Pio"></div>
+          <p class="pix-conta">Conta da <b>Obra Refúgio de Maria</b> no <b>Banco Sicredi</b></p>
+          <div class="copia">
+            <button type="button" class="btn btn-vermelho btn-bloco" id="copiar-pix"><svg class="i"><use href="#i-copiar"/></svg> Copiar código Pix (Copia e Cola)</button>
+            <p class="copiado" id="pix-copiado" role="status"></p>
+            <details><summary>Ver o código Pix</summary><code id="pix-codigo"></code></details>
+          </div>
+          <ol class="passos">
+            <li>Abra o app do seu banco e escolha a opção Pix.</li>
+            <li>Leia o QR Code ou escolha “Pix Copia e Cola” e cole o código.</li>
+            <li>Digite o valor da sua oferta.</li>
+            <li>Confira os dados do favorecido e confirme.</li>
+          </ol>
+        </div>
+
+        <div class="painel">
+          <h3>Confira os dados antes de confirmar</h3>
+          <p>Ao ler o QR Code, o app do seu banco deve mostrar estas informações:</p>
+          <dl class="dados">
+            <div><dt>Favorecido</dt><dd>Associação Obra Refúgio de Maria<small>o nome pode aparecer abreviado</small></dd></div>
+            <div><dt>CNPJ</dt><dd>60.638.183/0001-05</dd></div>
+            <div><dt>Instituição</dt><dd>Sicredi Veredas Cooperativa de Crédito</dd></div>
+            <div><dt>Mensagem</dt><dd>Futura Capela São Padre Pio - ORM</dd></div>
+            <div><dt>Identificador</dt><dd>PadrePio</dd></div>
+          </dl>
+          <div class="caixa-ok">
+            <svg class="i"><use href="#i-check"/></svg>
+            <div><b>Apareceram esses dados?</b> Pode seguir com a sua doação. Deus lhe pague!</div>
+          </div>
+          <div class="caixa-alerta">
+            <svg class="i"><use href="#i-alerta"/></svg>
+            <div>
+              <b>Algum dado diferente?</b> Não conclua o Pix. Fale com a gente pelo WhatsApp antes de doar.
+              <br><a class="btn btn-whats btn-pequeno" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Fui%20doar%20pelo%20Pix%20para%20a%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%2C%20mas%20os%20dados%20que%20apareceram%20no%20meu%20banco%20est%C3%A3o%20diferentes.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> WhatsApp (85) 98445-2025</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" id="ajudar">
+    <div class="wrap">
+      <div class="centro">
+        <span class="chamada">Outras formas de ajudar</span>
+        <h2>Todos podem ser <em>benfeitores</em></h2>
+        <p class="intro">Além da doação, há muitas maneiras de caminhar conosco nesta obra.</p>
+      </div>
+      <div class="formas">
+        <article class="forma">
+          <h3><svg class="i"><use href="#i-cadastro"/></svg>Cadastre-se como benfeitor</h3>
+          <p>Deixe seu contato para acompanhar a campanha e receber notícias sobre o andamento da obra.</p>
+          <div class="acoes"><a class="btn btn-vermelho btn-pequeno" href="https://docs.google.com/forms/d/e/1FAIpQLSfNPDxO4fLOqBeR42tPeZmhk7vZpLX3AltPRbYte3kVih-L8Q/viewform" target="_blank" rel="noopener">Fazer meu cadastro</a></div>
+        </article>
+        <article class="forma">
+          <h3><svg class="i"><use href="#i-partilhar"/></svg>Compartilhe esta campanha</h3>
+          <p>Envie para familiares e amigos. Cada pessoa que conhece o projeto pode se tornar um novo benfeitor.</p>
+          <div class="acoes">
+            <a class="btn btn-whats btn-pequeno" id="compartilhar-whats" href="https://wa.me/?text=Conhe%C3%A7a%20e%20ajude%20a%20construir%20a%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%2C%20da%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> Compartilhar no WhatsApp</a>
+            <button type="button" class="btn btn-contorno-escuro btn-pequeno" id="copiar-link"><svg class="i"><use href="#i-copiar"/></svg> Copiar link</button>
+          </div>
+        </article>
+        <article class="forma">
+          <h3><svg class="i"><use href="#i-cruz"/></svg>Reze pela obra</h3>
+          <p>Reze um Pai-Nosso, uma Ave-Maria e um Glória pela construção da capela e por todos os benfeitores, pedindo a intercessão de São Padre Pio.</p>
+        </article>
+        <article class="forma">
+          <h3><svg class="i"><use href="#i-empresa"/></svg>Empresas e profissionais</h3>
+          <p>Empresas, lojas de materiais e profissionais da construção também podem ajudar. Fale com a gente para combinarmos juntos.</p>
+          <div class="acoes"><a class="btn btn-contorno-escuro btn-pequeno" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Gostaria%20de%20ajudar%20na%20constru%C3%A7%C3%A3o%20da%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%20(empresa%2C%20materiais%20ou%20servi%C3%A7os)." target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> Conversar no WhatsApp</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao local" id="local">
+    <div class="wrap">
+      <div class="local-cartao">
+        <div>
+          <span class="chamada">Onde fica</span>
+          <h2>Na sede da <em>Obra Refúgio de Maria</em></h2>
+          <p class="end"><svg class="i"><use href="#i-pin"/></svg> Av. José Leon, 2038 · Fortaleza–CE</p>
+          <p>Na área pastoral da Paróquia Nossa Senhora da Glória. A capela será erguida no mesmo local onde hoje funciona a nossa sede.</p>
+        </div>
+        <a class="btn btn-vermelho" href="https://maps.app.goo.gl/ydwkyztnCiqdDMZH7" target="_blank" rel="noopener"><svg class="i"><use href="#i-pin"/></svg> Abrir no Google Maps</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" id="duvidas">
+    <div class="wrap">
+      <div class="centro">
+        <span class="chamada">Perguntas frequentes</span>
+        <h2>Transparência e confiança</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>O que é uma capela votiva?</summary>
+          <p>É uma capela oferecida a Deus como fruto de um voto, em ação de graças e em súplica, sob a proteção de um santo. A nossa é dedicada a São Padre Pio de Pietrelcina.</p>
+        </details>
+        <details>
+          <summary>Onde a capela será construída?</summary>
+          <p>No local da sede da Obra Refúgio de Maria, na Av. José Leon, 2038, em Fortaleza–CE, na área pastoral da Paróquia Nossa Senhora da Glória.</p>
+        </details>
+        <details>
+          <summary>Como sei que estou doando para a conta certa?</summary>
+          <p>Ao ler o QR Code ou colar o código, o app do seu banco mostra os dados da conta. Confira: CNPJ 60.638.183/0001-05, Sicredi Veredas Cooperativa de Crédito, mensagem “Futura Capela São Padre Pio - ORM” e identificador “PadrePio”. Se algo estiver diferente, não conclua o Pix e fale com a gente pelo WhatsApp <a href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Fui%20doar%20pelo%20Pix%20para%20a%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%2C%20mas%20os%20dados%20que%20apareceram%20no%20meu%20banco%20est%C3%A3o%20diferentes.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener">(85) 98445-2025</a>.</p>
+        </details>
+        <details>
+          <summary>Posso doar qualquer valor?</summary>
+          <p>Sim. O QR Code não tem valor fixo: você digita o valor que puder ofertar. Toda contribuição é bem-vinda.</p>
+        </details>
+        <details>
+          <summary>Como os recursos serão usados?</summary>
+          <p>As doações feitas por este Pix são destinadas à construção e à ambientação da Capela votiva a São Padre Pio. Quem se cadastra como benfeitor recebe notícias sobre o andamento da obra.</p>
+        </details>
+        <details>
+          <summary>Qual é o prazo da obra?</summary>
+          <p>As etapas e o cronograma serão divulgados conforme a campanha avançar. Cadastre-se como benfeitor para acompanhar as novidades.</p>
+        </details>
+        <details>
+          <summary>Posso ajudar sem doar dinheiro?</summary>
+          <p>Sim! Reze pela obra, divulgue a campanha e, se puder, ofereça seu tempo ou seus talentos. Fale com a gente pelo WhatsApp.</p>
+        </details>
+        <details>
+          <summary>As imagens mostram exatamente como a capela vai ficar?</summary>
+          <p>São ilustrações feitas a partir das medidas do projeto: nave de 8 m por 15 m e corredor lateral de 1 m à esquerda. O projeto final pode passar por ajustes.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao encerramento">
+    <div class="wrap">
+      <span class="chamada">Obra Refúgio de Maria</span>
+      <h2>Vamos construir juntos uma casa de oração</h2>
+      <p>Una-se a esta missão: doe, compartilhe e reze pela construção da Capela votiva a São Padre Pio.</p>
+      <div class="acoes">
+        <a class="btn btn-ouro" href="#doar">Doar via Pix</a>
+        <a class="btn btn-contorno" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%20e%20gostaria%20de%20falar%20com%20a%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg> Falar no WhatsApp</a>
+      </div>
+      <p class="jaculatoria">São Padre Pio, rogai por nós!</p>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <a class="marca" href="#inicio">
+      <img src="img/logo-orm.webp" alt="" width="52" height="52">
+      <span><b>Obra Refúgio de Maria</b><small>CNPJ 60.638.183/0001-05</small></span>
+    </a>
+    <ul>
+      <li>Site: <a href="https://obrarefugiodemaria.com.br" target="_blank" rel="noopener">obrarefugiodemaria.com.br</a></li>
+      <li>WhatsApp: <a href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%20e%20gostaria%20de%20falar%20com%20a%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener">(85) 98445-2025</a></li>
+      <li>Instagram: <a href="https://www.instagram.com/obrarefugiodemaria/" target="_blank" rel="noopener">@obrarefugiodemaria</a></li>
+      <li>Av. José Leon, 2038 · Fortaleza–CE</li>
+    </ul>
+    <p class="legal">© <span id="ano">2026</span> Obra Refúgio de Maria · Capela votiva a São Padre Pio. Imagens e passeio 3D ilustrativos. No passeio 3D, a foto de São Padre Pio e a imagem de Nossa Senhora de Fátima são de domínio público (Wikimedia Commons).</p>
+  </div>
+</footer>
+
+<a class="whats-flutuante" href="https://wa.me/5585984452025?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Capela%20votiva%20a%20S%C3%A3o%20Padre%20Pio%20e%20gostaria%20de%20falar%20com%20a%20Obra%20Ref%C3%BAgio%20de%20Maria." target="_blank" rel="noopener" aria-label="Falar com a Obra Refúgio de Maria no WhatsApp"><svg class="i"><use href="#i-whats"/></svg><span>Fale conosco</span></a>
+
+<script>
+// Pix Copia e Cola (mesmo conteúdo do QR Code do Sicredi)
+const PIX = '00020101021126730014br.gov.bcb.pix0114+55859844520250233Futura Capela Sao Padre Pio - ORM5204000053039865802BR5925ASSOCIACAO OBRA REFUGIO D6008BRASILIA62120508PadrePio63048E70';
+document.getElementById('pix-codigo').textContent = PIX;
+document.getElementById('ano').textContent = new Date().getFullYear();
+
+async function copiar(texto) {
+  try { await navigator.clipboard.writeText(texto); return true; } catch (e) {
+    const area = document.createElement('textarea');
+    area.value = texto; area.setAttribute('readonly', ''); area.style.position = 'fixed'; area.style.opacity = '0';
+    document.body.appendChild(area); area.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch (e2) {}
+    area.remove();
+    return ok;
+  }
+}
+const avisoPix = document.getElementById('pix-copiado');
+document.getElementById('copiar-pix').addEventListener('click', async () => {
+  avisoPix.textContent = (await copiar(PIX))
+    ? 'Código copiado! Agora abra o app do seu banco em Pix › Copia e Cola.'
+    : 'Não foi possível copiar. Abra “Ver o código Pix” e copie manualmente.';
+});
+
+// Compartilhar: usa o endereço desta página quando ela estiver publicada
+const enderecoPagina = /^https?:/.test(location.protocol) ? location.href.split('#')[0] : '';
+const textoConvite = 'Conheça e ajude a construir a Capela votiva a São Padre Pio, da Obra Refúgio de Maria.';
+if (enderecoPagina) document.getElementById('compartilhar-whats').href = 'https://wa.me/?text=' + encodeURIComponent(textoConvite + ' ' + enderecoPagina);
+const botaoLink = document.getElementById('copiar-link');
+if (!enderecoPagina) botaoLink.hidden = true;
+botaoLink.addEventListener('click', async () => {
+  const ok = await copiar(enderecoPagina);
+  botaoLink.lastChild.textContent = ok ? ' Link copiado!' : ' Copie da barra de endereço';
+});
+</script>
+
+<script type="module">
+// Passeio 3D: só carrega quando a pessoa clicar em "Iniciar"
+const player = document.getElementById('player');
+const canvas = document.getElementById('passeio-canvas');
+const cartaz = document.getElementById('passeio-cartaz');
+const carregando = document.getElementById('passeio-carregando');
+const escuro = document.getElementById('passeio-escuro');
+const cartela = document.getElementById('passeio-cartela');
+const botaoPP = document.getElementById('passeio-pp');
+const barra = document.getElementById('passeio-tempo');
+const tempoTxt = document.getElementById('passeio-tempo-txt');
+
+let mod, passeio, t = 0, tocando = false, ultimo = 0, sujo = true, visivel = true, alta = false;
+const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+
+async function importar() {
+  const fonte = document.getElementById('tour3d-fonte');
+  if (fonte) return import(URL.createObjectURL(new Blob([fonte.textContent], { type: 'text/javascript' })));
+  return import('./tour3d.js');
+}
+
+function redimensionar() {
+  if (!passeio) return;
+  const r = canvas.getBoundingClientRect();
+  passeio.tamanho(Math.max(2, Math.round(r.width)), Math.max(2, Math.round(r.height)), Math.min(devicePixelRatio || 1, alta ? 1.5 : 1.25));
+  sujo = true;
+}
+
+function atualizarBotao() {
+  botaoPP.innerHTML = `<svg class="i"><use href="#i-${tocando ? 'pausa' : 'play'}"/></svg>`;
+  botaoPP.setAttribute('aria-label', tocando ? 'Pausar' : 'Continuar');
+}
+
+function desenhar() {
+  passeio.render(t);
+  escuro.style.opacity = mod.escuroEm(t);
+  const ls = mod.legendasEm(t);
+  const cart = ls.find((l) => l.abertura || l.final);
+  cartela.style.opacity = cart ? cart.opacidade : 0;
+  if (cart) {
+    cartela.querySelector('strong').textContent = cart.titulo;
+    cartela.querySelector('span').textContent = cart.texto;
+    cartela.querySelector('em').hidden = !cart.final;
+  }
+  barra.value = t;
+  tempoTxt.textContent = `${mmss(t)} / ${mmss(mod.DURACAO)}`;
+}
+
+function laco() {
+  const agora = performance.now();
+  const dt = Math.min(0.1, Math.max(0, (agora - ultimo) / 1000));
+  ultimo = agora;
+  if (tocando && visivel) {
+    t += dt;
+    if (t >= mod.DURACAO) { t = mod.DURACAO; tocando = false; atualizarBotao(); }
+    sujo = true;
+  }
+  if (sujo && visivel) { desenhar(); sujo = false; }
+  requestAnimationFrame(laco);
+}
+
+async function iniciar() {
+  cartaz.hidden = true;
+  carregando.style.display = 'grid';
+  try {
+    mod = await importar();
+    alta = matchMedia('(min-width: 900px)').matches && !/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    passeio = await mod.criarPasseio(canvas, {
+      texturas: { padrePio: 'img/tex_padrepio.webp', placaRetrato: 'img/tex_placa_retrato.png', fatima: 'img/tex_fatima.webp' },
+      qualidade: alta ? 'alta' : 'media',
+    });
+    barra.max = mod.DURACAO;
+    redimensionar();
+    new ResizeObserver(redimensionar).observe(player);
+    new IntersectionObserver((e) => { visivel = e[0].isIntersecting; }, { threshold: 0.15 }).observe(player);
+    player.classList.add('ativo');
+    carregando.style.display = 'none';
+    tocando = true; atualizarBotao();
+    ultimo = performance.now();
+    requestAnimationFrame(laco);
+  } catch (erro) {
+    console.error(erro);
+    carregando.textContent = 'Não foi possível carregar o passeio 3D neste aparelho. Veja as imagens do projeto acima.';
+  }
+}
+
+document.getElementById('passeio-iniciar').addEventListener('click', iniciar);
+botaoPP.addEventListener('click', () => {
+  if (!tocando && t >= mod.DURACAO) t = 0;
+  tocando = !tocando; atualizarBotao(); sujo = true;
+});
+barra.addEventListener('input', () => { t = +barra.value; sujo = true; });
+document.getElementById('passeio-tela').addEventListener('click', () => {
+  if (document.fullscreenElement) document.exitFullscreen();
+  else (player.requestFullscreen || player.webkitRequestFullscreen || (() => {})).call(player);
+});
+if (!document.fullscreenEnabled && !document.webkitFullscreenEnabled) document.getElementById('passeio-tela').hidden = true;
+</script>
+</body>
+</html>

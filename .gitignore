@@ -1,0 +1,7 @@
+# vídeos: são enviados pelo WhatsApp/Instagram, não fazem parte do site
+video/
+# quadros temporários da gravação do vídeo
+render/
+node_modules/
+desktop.ini
+Thumbs.db

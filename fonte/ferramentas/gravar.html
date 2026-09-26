@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Gravar passeio 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #111; color: #eee; font: 14px 'Open Sans', sans-serif; }
+  #gl { position: absolute; left: -99999px; }
+  #saida { width: 100%; height: auto; display: block; }
+  #status { position: fixed; top: 8px; left: 8px; background: #000a; padding: 6px 10px; border-radius: 6px; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<canvas id="saida"></canvas>
+<div id="status">carregando…</div>
+<script type="module">
+// Parâmetros: ?t=12 (um quadro para conferência) | ?gravar=1&fps=30&w=1920&h=1080&pasta=horizontal
+import { criarPasseio, DURACAO, legendasEm, escuroEm } from '../tour3d.js';
+
+const q = new URLSearchParams(location.search);
+const W = +q.get('w') || 1920, H = +q.get('h') || 1080, FPS = +q.get('fps') || 30;
+const pasta = q.get('pasta') || (W >= H ? 'horizontal' : 'vertical');
+const status = document.getElementById('status');
+const log = (m) => { status.textContent = m; fetch('/log', { method: 'POST', body: m }).catch(() => {}); };
+
+const gl = document.getElementById('gl');
+const saida = document.getElementById('saida');
+saida.width = W; saida.height = H;
+const ctx = saida.getContext('2d');
+
+await document.fonts.load("700 80px 'Cormorant Garamond'");
+await document.fonts.load("italic 600 80px 'Cormorant Garamond'");
+await document.fonts.load("600 30px 'Open Sans'");
+const logo = new Image();
+await new Promise((ok) => { logo.onload = ok; logo.src = '../img/logo-orm.png'; });
+log('fontes e logo ok');
+
+const passeio = await criarPasseio(gl, {
+  texturas: { padrePio: '../img/tex_padrepio.webp', placaRetrato: '../img/tex_placa_retrato.png', fatima: '../img/tex_fatima.webp' },
+  qualidade: 'alta', gravacao: true,
+});
+passeio.tamanho(W, H, 1);
+log('cena pronta');
+
+const S = Math.min(W, H) / 1080; // escala de tipografia
+
+function sobreposicoes(t, comLegenda = true) {
+  const e = escuroEm(t);
+  if (e > 0) { ctx.fillStyle = `rgba(0,0,0,${e})`; ctx.fillRect(0, 0, W, H); }
+  for (const l of legendasEm(t)) {
+    if (!comLegenda && !l.abertura && !l.final) continue; // sem legenda: mantém só abertura e encerramento
+    ctx.save();
+    ctx.globalAlpha = l.opacidade;
+    if (l.abertura || l.final) {
+      const g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, 'rgba(40,8,10,0.15)'); g.addColorStop(0.5, 'rgba(40,8,10,0.55)'); g.addColorStop(1, 'rgba(40,8,10,0.2)');
+      ctx.fillStyle = l.final ? 'rgba(52,10,14,0.62)' : g;
+      ctx.fillRect(0, 0, W, H);
+      const lg = 170 * S;
+      ctx.drawImage(logo, W / 2 - lg / 2, H / 2 - lg - 70 * S, lg, lg);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#fff';
+      ctx.font = `700 ${Math.round((W < H ? 70 : 84) * S)}px 'Cormorant Garamond'`;
+      const nt = linhasDe(l.titulo, W * 0.86).length;
+      let y = H / 2 + 20 * S;
+      quebrar(l.titulo, W / 2, y, W * 0.86, 84 * S);
+      y += (nt - 1) * 84 * S + 68 * S;
+      ctx.fillStyle = '#e8cf8e';
+      ctx.font = `600 ${Math.round(30 * S)}px 'Open Sans'`;
+      const ns = linhasDe(l.texto, W * 0.86).length;
+      quebrar(l.texto, W / 2, y, W * 0.86, 42 * S);
+      y += (ns - 1) * 42 * S + 82 * S;
+      if (l.final) {
+        ctx.fillStyle = '#f7ebe6';
+        ctx.font = `italic 600 ${Math.round(46 * S)}px 'Cormorant Garamond'`;
+        ctx.fillText('São Padre Pio, rogai por nós!', W / 2, y);
+      }
+    } else {
+      ctx.font = `600 ${Math.round(32 * S)}px 'Open Sans'`;
+      const pad = 26 * S, x = (W < H ? 40 : 90) * S, maxW = W - 2 * x;
+      const linhas = linhasDe(l.texto, maxW - 2 * pad);
+      const lh = 44 * S, bh = linhas.length * lh + 2 * pad - 8 * S;
+      const y = H - bh - (W < H ? 260 : 80) * S;
+      ctx.fillStyle = 'rgba(28,10,12,0.72)';
+      const bw = Math.max(...linhas.map((s) => ctx.measureText(s).width)) + 2 * pad + 10 * S;
+      ctx.fillRect(x, y, bw, bh);
+      ctx.fillStyle = '#c9a24a';
+      ctx.fillRect(x, y, 6 * S, bh);
+      ctx.fillStyle = '#fff';
+      ctx.textAlign = 'left';
+      linhas.forEach((s, i) => ctx.fillText(s, x + pad + 10 * S, y + pad + 26 * S + i * lh));
+    }
+    ctx.restore();
+  }
+}
+function linhasDe(txt, maxW) {
+  const out = []; let cur = '';
+  for (const w of txt.split(' ')) {
+    const tent = cur ? cur + ' ' + w : w;
+    if (ctx.measureText(tent).width > maxW && cur) { out.push(cur); cur = w; } else cur = tent;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+function quebrar(txt, x, y, maxW, lh) {
+  linhasDe(txt, maxW).forEach((s, i) => ctx.fillText(s, x, y + i * lh));
+}
+
+function quadro(t, comLegenda = true, renderizar = true) {
+  if (renderizar) passeio.render(t);
+  ctx.drawImage(gl, 0, 0, W, H);
+  if (!q.get('limpo')) sobreposicoes(t, comLegenda);
+}
+const salvar = async (p, n) => {
+  const blob = await new Promise((r) => saida.toBlob(r, 'image/jpeg', 0.93));
+  await fetch('/quadro?pasta=' + p + '&n=' + n, { method: 'POST', body: blob });
+};
+
+if (q.get('gravar')) {
+  const total = Math.round(DURACAO * FPS);
+  const t0 = performance.now();
+  for (let n = 0; n < total; n++) {
+    // ?duplo=1 grava a mesma cena duas vezes: sem legenda (pasta-sem-legenda) e com legenda (pasta)
+    if (q.get('duplo')) {
+      quadro(n / FPS, false);
+      await salvar(pasta + '-sem-legenda', n);
+      quadro(n / FPS, true, false);
+    } else quadro(n / FPS);
+    await salvar(pasta, n);
+    if (n % 30 === 0) {
+      const seg = (performance.now() - t0) / 1000;
+      log(`${pasta}: quadro ${n}/${total} · ${seg.toFixed(0)}s · faltam ~${((seg / (n + 1)) * (total - n)).toFixed(0)}s`);
+    }
+  }
+  log(`${pasta}: CONCLUIDO ${total} quadros`);
+  document.title = 'CONCLUIDO';
+} else if (q.get('vistas')) {
+  // vistas fixas para conferência: vistas=x,y,z,ax,ay,az,fov;...
+  const lista = q.get('vistas').split(';').map((s) => s.split(',').map(Number));
+  for (const [i, v] of lista.entries()) {
+    passeio.renderVista(v.slice(0, 3), v.slice(3, 6), v[6] || 50);
+    ctx.drawImage(gl, 0, 0, W, H);
+    const blob = await new Promise((r) => saida.toBlob(r, 'image/jpeg', 0.92));
+    await fetch(`/quadro?pasta=${q.get('pasta') || 'vistas'}&n=${i}`, { method: 'POST', body: blob });
+  }
+  document.title = 'PRONTO';
+} else if (q.get('ts')) {
+  // prévias: salva quadros avulsos em render/quadros/previa/
+  const tempos = q.get('ts').split(',').map(Number);
+  for (const [i, t] of tempos.entries()) {
+    quadro(t);
+    const blob = await new Promise((r) => saida.toBlob(r, 'image/jpeg', 0.9));
+    await fetch(`/quadro?pasta=previa&n=${i}`, { method: 'POST', body: blob });
+  }
+  document.title = 'PRONTO';
+} else {
+  const t = +q.get('t') || 0;
+  quadro(t);
+  status.textContent = `t = ${t}s`;
+  document.title = 'PRONTO';
+}
+</script>
+</body>
+</html>
