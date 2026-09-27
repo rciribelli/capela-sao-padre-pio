@@ -54,7 +54,8 @@ Os quadros vão para `render/quadros/` (apague a pasta depois de gerar o MP4 com
 ## Segurança
 
 - **CSP:** o `montar.js` coloca no `index.html` uma política de segurança (Content-Security-Policy). Ela só permite scripts do próprio site e os 3 scripts da página, identificados por hash. Um script injetado ou alterado é bloqueado pelo navegador, então ninguém consegue trocar o Pix por script.
-- **Sem CDN de terceiros:** o site não carrega JavaScript de fora. As únicas origens externas são as fontes do Google (só CSS e arquivos de fonte).
+- **Scripts de terceiros:** o único JavaScript de fora é o Meta Pixel (id 1105777588506985), liberado na CSP só para connect.facebook.net e www.facebook.com. Ele envia o PageView normalmente. O script da Meta também tenta falar com servidores extras em nuvem (*.on.aws, *.run.app), e a CSP bloqueia isso de propósito. As outras origens externas são as fontes do Google (só CSS e arquivos de fonte).
+- **Privacidade:** como o Meta Pixel usa cookies, o ideal é ter um aviso de privacidade/cookies (LGPD).
 - **Sempre use o montar.js:** depois de editar `fonte/index.html`, rode `node fonte/ferramentas/montar.js`. Ele recalcula os hashes. Se o `index.html` for editado à mão, os scripts alterados param de funcionar até rodar o montar.js de novo.
 - **Conta GitHub:** quem controla a conta controla o Pix publicado. Mantenha a verificação em duas etapas ativa.
 - **Repositório:** a wiki e os Projects estão desativados, para ninguém publicar conteúdo (como um Pix falso) dentro do repositório. Os commits usam o e-mail oculto do GitHub.
