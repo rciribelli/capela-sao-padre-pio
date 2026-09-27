@@ -308,11 +308,17 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
 
 @media (max-width: 980px) {
   .menu a:not(.btn) { display: none; }
+  /* no celular, o destaque do topo é "Seja um benfeitor" (o "Doar via Pix" já aparece logo abaixo) */
+  .menu a.btn-vermelho { display: none; }
+  .menu a.menu-benfeitor { display: inline-flex; align-items: center; min-height: 40px; padding: 9px 16px; border-radius: 999px; background: var(--vermelho); color: #fff; font-size: 14px; font-weight: 700; white-space: nowrap; }
   .dedicada, .doar-grade { grid-template-columns: 1fr; gap: 28px; }
   .cartoes { grid-template-columns: repeat(2, 1fr); }
   .planta-bloco { grid-template-columns: 300px 1fr; gap: 36px; }
 }
 @media (max-width: 720px) {
+  .menu a.menu-benfeitor { min-height: 36px; padding: 7px 12px; font-size: 13px; }
+  .marca b { font-size: 18px; line-height: 1.05; }
+  .marca small { display: none; }
   .citacao { grid-template-columns: 1fr 1.2fr; gap: 16px; padding: 28px 22px; }
   .citacao-retrato { margin-bottom: -28px; }
   .cabecalho .wrap { height: 64px; }
@@ -385,7 +391,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
       <a href="#capela">A capela</a>
       <a href="#projeto">O projeto</a>
       <a href="#passeio">Passeio 3D</a>
-      <a href="#benfeitor">Seja um benfeitor</a>
+      <a href="#benfeitor" class="menu-benfeitor">Seja um benfeitor</a>
       <a href="#duvidas">Dúvidas</a>
       <a class="btn btn-vermelho btn-pequeno" href="#doar">Doar via Pix</a>
     </nav>
