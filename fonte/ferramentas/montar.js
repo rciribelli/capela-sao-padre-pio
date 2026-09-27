@@ -29,16 +29,17 @@ html = trocar(html, '"./vendor/three/', '"./fonte/vendor/three/');
 html = trocar(html, "import('./tour3d.js')", "import('./fonte/tour3d.js')");
 
 // Política de segurança (CSP): só roda script do próprio site ou os scripts embutidos desta página,
-// identificados pelo hash. Qualquer script injetado ou alterado é bloqueado pelo navegador.
+// identificados pelo hash, além do Meta Pixel (connect.facebook.net / www.facebook.com).
+// Qualquer script injetado ou alterado é bloqueado pelo navegador.
 const hashes = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)]
   .map((m) => `'sha256-${crypto.createHash('sha256').update(m[1], 'utf8').digest('base64')}'`);
 const csp = [
   "default-src 'none'",
-  `script-src 'self' ${hashes.join(' ')}`,
+  `script-src 'self' https://connect.facebook.net ${hashes.join(' ')}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src https://fonts.gstatic.com",
-  "img-src 'self' data:",
-  "connect-src 'self'",
+  "img-src 'self' data: https://www.facebook.com",
+  "connect-src 'self' https://www.facebook.com https://connect.facebook.net",
   "base-uri 'self'",
   "form-action 'none'",
   "object-src 'none'",
