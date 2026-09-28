@@ -10,7 +10,7 @@ no local da sede da Obra Refúgio de Maria (Av. José Leon, 2038, Fortaleza–CE
 
 ## Site no ar
 
-- Endereço provisório (GitHub Pages): https://rciribelli.github.io/capela-sao-padre-pio/
+- Endereço provisório (GitHub Pages): https://capela.obrarefugiodemaria.com.br/
 - O GitHub Pages publica o `index.html` da raiz do branch `main`. Cada `git push` atualiza o site em 1 ou 2 minutos.
 - `compartilhar.jpg` é a imagem que aparece quando o link é compartilhado no WhatsApp e nas redes sociais.
 
